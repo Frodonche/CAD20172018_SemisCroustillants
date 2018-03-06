@@ -1,0 +1,20 @@
+@startuml
+
+title Placer un bateau
+
+actor Utilisateur 
+
+Vue -> Utilisateur : Placez le croiseur
+Utilisateur -> Vue : Choix Orientation (Verticale / Horizontale)
+Vue -> Controlleur : Orientation courante
+Controlleur -> Modele : Orientation courante
+Utilisateur -> Vue : Choix de la position du bateau (horizontal : extr gauche, vertical : extr haute)
+Vue -> Controlleur : Choix position bateau
+alt position correcte
+Controlleur -> Modele : position bateau
+Modele -> Joueur : maj position bateau
+else position incorrecte
+Controlleur -> Vue : position incorrecte
+Vue -> Utilisateur : position incorrecte
+end
+@enduml 

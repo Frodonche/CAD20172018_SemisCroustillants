@@ -1,0 +1,29 @@
+@startuml
+
+title Initialisation de la flotte des joueurs apres choix de l'epoque
+
+actor Utilisateur 
+Utilisateur -> Vue : Clique sur une époque (XXe par exemple)
+Vue -> Controlleur : Clic Vue déclenche le Controlleur
+Controlleur -> Modele : setEpoque(2)
+Modele -> Game : setEpoque(2)
+participant Joueur
+Game -> EpoqueXXe : EpoqueXXe() epoque = new EpoqueXXe()
+Game -> EpoqueXXe : epoque.creerBateau()
+
+EpoqueXXe -> UsineXXe : UsineXXe usine = new UsineXXe()
+EpoqueXXe -> EpoqueXXe : ArrayList<Bateau> flotte = new ArrayList<Bateau>() 
+EpoqueXXe -> UsineXXe
+UsineXXe -> EpoqueXXe : flotte.add(usineXXeme.formerBateau(deux));
+EpoqueXXe -> UsineXXe
+UsineXXe -> EpoqueXXe : flotte.add(usineXXeme.formerBateau(trois));
+EpoqueXXe -> UsineXXe
+UsineXXe -> EpoqueXXe : flotte.add(usineXXeme.formerBateau(trois));
+EpoqueXXe -> UsineXXe
+UsineXXe -> EpoqueXXe : flotte.add(usineXXeme.formerBateau(quatre));
+EpoqueXXe -> UsineXXe
+UsineXXe -> EpoqueXXe : flotte.add(usineXXeme.formerBateau(cinq));
+EpoqueXXe -> Game : return flotte
+Game -> Joueur : J1.setflotte(flotte)
+Game -> Joueur : J2.setflotte(flotte)
+@enduml 

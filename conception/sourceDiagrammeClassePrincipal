@@ -1,0 +1,81 @@
+@startuml
+
+Modele -- Game
+Modele : setEpoque()
+
+
+Game : Joueur J1
+Game : Joueur J2
+Game : Epoque epoque
+
+
+
+
+Bateau -- Case
+
+Bateau : public Bateau(int taille)
+Bateau : int taille
+Bateau : int nbMunitions
+Bateau : Liste <Case>
+Bateau : int vieCaseBateau
+
+Modele : Game maGame
+
+Game -- Joueur
+Joueur : int[10][10] Grille
+Joueur : Liste<Bateau> flotte
+Game : setEpoque()
+Joueur : setFlotte()
+Joueur : Strategy strat
+
+interface Strategy
+Joueur -- Strategy
+Strategy <|.. StrategieA
+Strategy <|.. StrategieB
+
+
+interface Epoque 
+Epoque -- Game
+Epoque <|.. EpoqueXXe
+Epoque <|.. EpoqueXVIe
+Epoque : creerFlotte()
+Epoque : creerBateau()
+
+EpoqueXXe : creerBateau()
+EpoqueXVIe : creerBateau()
+
+Case : int vie
+Case : int x
+Case : int y
+
+abstract class Usine
+Usine : abstract creerBateau(int type)
+
+UsineXXe -- PorteAvion
+UsineXXe -- Croiseur
+UsineXXe -- SousMarin
+UsineXXe -- Torpilleur
+UsineXXe : creerBateau(int type)
+
+UsineXVIe -- Galion
+UsineXVIe -- Caraque
+UsineXVIe -- Fregate
+UsineXVIe -- Caravelle
+UsineXVIe : creerBateau(int type)
+
+Bateau <|-- Galion
+Bateau <|-- Caraque
+Bateau <|-- Fregate
+Bateau <|-- Caravelle
+
+Bateau <|-- PorteAvion
+Bateau <|-- Croiseur
+Bateau <|-- SousMarin
+Bateau <|-- Torpilleur
+
+Usine -- Epoque
+Usine <|-- UsineXXe
+Usine <|-- UsineXVIe
+
+abstract class Bateau
+@enduml

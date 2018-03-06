@@ -1,0 +1,19 @@
+Fonction rapide de la structure
+
+On a un Modèle qui possède une instance de Game.
+Il possède aussi une fonction setEpoque() qui défini l'époque de Game au lancement du programme.
+
+Game instancie deux Joueur et une Epoque (par défaut dans le constructeur)
+setEpoque() permet de définir l'époque de Game.
+
+Joueur possède une grille et une liste de Bateau.
+setFlotte() est appelé par setEpoque de Game pour instancier la liste de Bateau de Joueur.
+
+(Strategy correspond aux differentes stratégies de jeu pour l'IA)
+
+Le trio Epoque, EpoqueXXe et EpoqueXVIe constitue un desgin pattern de type Strategie.
+setEpoque() de Game va permettre de sélectionner une stratégie entre EpoqueXXe et EpoqueXVIe.
+Epoque est ensuite reliée à un design pattern de type Factory permettant de générer une liste de bateaux en fonction de l'Epoque sélectionnée par l'utilisateur.
+Ainsi, EpoqueXXe va appeler UsineXXe, par exemple.
+
+etraits de fonctions sur le framapad : https://bimestriel.framapad.org/p/conceptionCAD
