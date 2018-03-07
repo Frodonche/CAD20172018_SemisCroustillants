@@ -31,6 +31,6 @@ class SpriteXVIeme{
     ...
     private SpriteXVIeme()
     public static BufferedImage getSprite(String type)
-}
+}  
 
 @enduml
