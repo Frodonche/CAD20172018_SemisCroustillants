@@ -17,3 +17,99 @@ Epoque est ensuite reliée à un design pattern de type Factory permettant de g�
 Ainsi, EpoqueXXe va appeler UsineXXe, par exemple.
 
 etraits de fonctions sur le framapad : https://bimestriel.framapad.org/p/conceptionCAD
+
+public class Game {
+    
+    .
+    .
+    .
+
+    public void setEpoque(int choix){
+
+        
+        Epoque epoque;
+        
+        switch(choix){
+            
+            case 20 :  epoque = new XXeme();
+            case 16 : epoque = new XVIeme();
+            
+        }
+        
+        ArrayList<Bateau> flotte =  epoque.creerFlotte();
+        joueur.setFlotte(flotte);
+        .
+        .
+        .
+        }
+    .
+    .
+    .
+    
+    }
+    
+    public class EpoqueXXeme implements Epoque {
+    .
+    .
+    .
+    ArrayList<Bateau> creerFlotte(){
+        ArrayList<Bateau> flotte = new ArrayList<Bateau>();
+        Usine usineXXeme = new usineXXeme();
+        flotte.add(usineXXeme.formerBateau(deux));
+        flotte.add(usineXXeme.formerBateau(trois));
+        flotte.add(usineXXeme.formerBateau(trois));
+        flotte.add(usineXXeme.formerBateau(quatre));
+        flotte.add(usineXXeme.formerBateau(cinq));
+        return flotte;
+        }
+        .
+        .
+        .
+    }
+    
+    public abstract class Usine{
+        .
+        .
+        .
+        public Bateau formerBateau(String type){
+            return this.creerBateau(type);
+        }
+        
+        public abstract creerBateau(String type){}
+    }
+    
+    public class UsineXXeme extends Usine{
+
+    .
+
+    .
+
+    .
+
+    public Bateau creerBateau(String type){
+
+    Bateau bateau = null;
+
+    switch(type){
+
+    case deux : bateau = new torpilleur();break;
+
+    case trois : bateau = new ssmarin();break;
+
+    case quatre : bateau = new croiseur();break;
+
+    case cinq : bateau = new porteavion();break;
+
+    }
+
+    return bateau;
+
+    }
+
+    .
+
+    .
+
+    .
+
+    }
