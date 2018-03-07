@@ -1,0 +1,36 @@
+@startuml
+
+title Diagramme Sprite Factory
+
+
+abstract class SpriteFactory {
+    public abstract getSprite(String type)
+}
+
+SpriteInterface --|> SpriteFactory
+SpriteXXeme --|> SpriteFactory
+SpriteXVIeme --|> SpriteFactory
+
+class SpriteInterface {
+    private static SpriteInterface instance
+    private static BufferedImage background
+    ...
+    private SpriteInterface()
+    public static BufferedImage getSprite(String type)
+}
+class SpriteXXeme{
+    private static SpriteXXeme instance
+    private static BufferedImage cuirasse
+    ...
+    private SpriteXXeme()
+    public static BufferedImage getSprite(String type)
+}
+class SpriteXVIeme{
+    private static SpriteXVIeme instance
+    private static BufferedImage galion
+    ...
+    private SpriteXVIeme()
+    public static BufferedImage getSprite(String type)
+}
+
+@enduml
