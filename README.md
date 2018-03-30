@@ -13,3 +13,5 @@ Detail des packages et leur but/contenu
 Notes :
 - On stocke les differentes epoques dans le modele pour pouvoir en selectionner une facilement a partir de l'ecran titre.
 - Quand on ajoute une nouvelle epoque, il faut egalement ajouter l'usine et les bateaux qui seront instancies a partir de l'epoque en question.
+
+Menu pas encore fonctionnel (fenetre vide pour l'instant)
