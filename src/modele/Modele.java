@@ -36,4 +36,8 @@ public class Modele {
 	public void ajouterVue(View vue) {
 		lesVues.add(vue);
 	}
+	
+	public int getNbEpoques() {
+		return lesEpoques.size();
+	}
 }
