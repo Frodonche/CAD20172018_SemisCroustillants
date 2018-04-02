@@ -6,9 +6,14 @@ import bateaux.Bateau;
 
 public class EpoqueXXe implements Epoque{
 	// private Usine monUsine
+	private String name;
 	
-	public EpoqueXXe() {
-		
+	public EpoqueXXe(String name) {
+		this.name = name;
+	}
+	
+	public String getName() {
+		return name;
 	}
 	
 	@Override

@@ -7,4 +7,5 @@ import bateaux.Bateau;
 public interface Epoque {
 	public ArrayList<Bateau> creerFlotte();
 	public Bateau creerBateau(int type);
+	public String getName();
 }

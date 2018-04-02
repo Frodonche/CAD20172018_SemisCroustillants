@@ -11,12 +11,16 @@ public class SpriteInterface extends SpriteFactory{
 	private static BufferedImage epoqueXVIe;
 	private static BufferedImage epoqueXXe;
 	private static BufferedImage imageTitre;
+	private static BufferedImage water;
+	private static BufferedImage fog;
 	
 	private SpriteInterface() {
 		try {
 			epoqueXVIe = ImageIO.read(new File("images/EpoqueXVIeMenu.jpeg"));
 			imageTitre = ImageIO.read(new File("images/ImageTitre.jpeg"));
 			epoqueXXe = ImageIO.read(new File("images/EpoqueXXeMenu.jpg"));
+			water = ImageIO.read(new File("images/water.png"));
+			fog = ImageIO.read(new File("images/fog.png"));
 		} catch (IOException e) {
 			System.out.println("Erreur chargement image");
 			e.printStackTrace();
@@ -35,6 +39,10 @@ public class SpriteInterface extends SpriteFactory{
 			return epoqueXXe;
 		if(type == "ImageTitre")
 			return imageTitre;
+		if(type == "Water")
+			return water;
+		if(type == "Fog")
+			return fog;
 		return null;
 	}
 

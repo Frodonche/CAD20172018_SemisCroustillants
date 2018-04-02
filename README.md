@@ -13,5 +13,7 @@ Detail des packages et leur but/contenu
 Notes :
 - On stocke les differentes epoques dans le modele pour pouvoir en selectionner une facilement a partir de l'ecran titre.
 - Quand on ajoute une nouvelle epoque, il faut egalement ajouter l'usine et les bateaux qui seront instancies a partir de l'epoque en question.
-
-Menu pas encore fonctionnel (fenetre vide pour l'instant)
+- Taille fenetre : 800 x 830 (30px pour la barre d'application) taille effective : 800 x 800
+- Image titre menu : 799 x 140
+- Image choix epoque 399 x 640  /!\ Largeur valable car seulement deux epoques pour l'instant
+- Idee d'interface dans IdeeInterface.jpg
