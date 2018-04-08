@@ -3,7 +3,7 @@ package modele;
 import java.util.ArrayList;
 
 import epoques.*;
-import views.*;
+import views.View;
 
 public class Modele {
 	private Game maGame;
