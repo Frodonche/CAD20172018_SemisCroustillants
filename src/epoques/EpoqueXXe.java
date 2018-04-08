@@ -2,7 +2,8 @@ package epoques;
 
 import java.util.ArrayList;
 
-import bateaux.Bateau;
+import bateaux.*;
+import usines.*;
 
 public class EpoqueXXe implements Epoque{
 	// private Usine monUsine
@@ -18,8 +19,14 @@ public class EpoqueXXe implements Epoque{
 	
 	@Override
 	public ArrayList<Bateau> creerFlotte() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Bateau> flotte = new ArrayList();
+		Usine usine = new UsineXX();
+		flotte.add(usine.formerBateau(2));
+		flotte.add(usine.formerBateau(3));
+		flotte.add(usine.formerBateau(3));
+		flotte.add(usine.formerBateau(4));
+		flotte.add(usine.formerBateau(5));
+		return flotte;
 	}
 
 	@Override
