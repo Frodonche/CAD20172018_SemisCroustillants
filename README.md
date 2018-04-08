@@ -17,3 +17,14 @@ Notes :
 - Image titre menu : 799 x 140
 - Image choix epoque 399 x 640  /!\ Largeur valable car seulement deux epoques pour l'instant
 - Idee d'interface dans IdeeInterface.jpg
+
+Pour compiler:
+
+Se placer à la racine
+
+>> ant compile
+>> ant run
+	
+	OU
+
+>> ant
