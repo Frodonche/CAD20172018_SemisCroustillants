@@ -18,7 +18,7 @@ public class ViewBarreGauche extends JPanel implements View {
 	
 	public ViewBarreGauche(Modele modele) {
 		this.modele = modele;
-		this.setPreferredSize(new Dimension(190, 750));
+		this.setPreferredSize(new Dimension(220, 750));
 		//this.setBackground(Color.BLACK);
 	}
 	
