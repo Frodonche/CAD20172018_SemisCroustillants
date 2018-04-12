@@ -17,7 +17,7 @@ public class ViewGrilleJoueur extends JPanel implements View{
 	public ViewGrilleJoueur(Modele modele) {
 		this.modele = modele;
 		this.setLayout(new GridLayout(10, 10));
-		this.setPreferredSize(new Dimension(400,400));
+		this.setPreferredSize(new Dimension(350,350));
 		declareGrilleJoueur();
 		this.setVisible(false);
 	}

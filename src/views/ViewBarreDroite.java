@@ -18,8 +18,10 @@ public class ViewBarreDroite extends JPanel implements View {
 	
 	public ViewBarreDroite(Modele modele) {
 		this.modele = modele;
-		this.setPreferredSize(new Dimension(190, 800));
-		this.setBackground(Color.BLACK);
+		this.setPreferredSize(new Dimension(190, 750));
+		//this.setBackground(Color.BLACK);
+		
+		
 	}
 	
 	@Override
