@@ -33,6 +33,7 @@ public class ControllerCaseGrilleTir implements ActionListener{
 		System.out.println("Case cliquee : "+ x + " " + y);
 		self.setIcon(new ImageIcon(SpriteInterface.getInstance().getSprite("Water")));
 		modele.update();
+		modele.save(); // /!\ A RETIRER /!\
 	}
 
 }

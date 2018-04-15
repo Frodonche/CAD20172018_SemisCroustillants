@@ -2,6 +2,8 @@ package bateaux;
 
 public class SsMarin extends Bateau {
 	
-	public SsMarin(){}
+	public SsMarin(){
+		super(2);
+	}
 	
 }

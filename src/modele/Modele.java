@@ -21,6 +21,7 @@ public class Modele {
 		Epoque tempEp;
 		enJeu = false; // initialement dans le menu, donc pas en jeu
 		
+
 		// Creation epoque XVIe
 		tempEp = new EpoqueXVIe("XVIe siecle");
 		lesEpoques.add(tempEp);
@@ -72,6 +73,12 @@ public class Modele {
 	 */
 	public void setEnJeu(boolean bool) {
 		this.enJeu = bool;
+	}
+
+	public void save(){
+		GameDAO gdao = new GameDAO("Save");
+		gdao.serialize(maGame);
+		gdao.saveToXML();
 	}
 	
 	

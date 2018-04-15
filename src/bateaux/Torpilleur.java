@@ -2,6 +2,8 @@ package bateaux;
 
 public class Torpilleur extends Bateau {
 	
-	public Torpilleur(){}
+	public Torpilleur(){
+		super(3);
+	}
 	
 }

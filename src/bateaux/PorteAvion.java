@@ -2,6 +2,8 @@ package bateaux;
 
 public class PorteAvion extends Bateau {
 	
-	public PorteAvion(){}
+	public PorteAvion(){
+		super(4);
+	}
 	
 }

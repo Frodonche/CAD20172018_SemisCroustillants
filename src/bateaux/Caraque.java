@@ -2,6 +2,8 @@ package bateaux;
 
 public class Caraque extends Bateau {
 	
-	public Caraque(){}
+	public Caraque(){
+		super(2);
+	}
 	
 }

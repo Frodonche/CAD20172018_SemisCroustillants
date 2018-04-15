@@ -35,4 +35,9 @@ public class EpoqueXXe implements Epoque{
 		return null;
 	}
 
+	@Override
+	public String toString(){
+		return "EpoqueXXe";
+	}
+
 }

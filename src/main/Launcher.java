@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 
-import modele.Modele;
+import modele.*;
 import views.ViewBarreDroite;
 import views.ViewEnJeu;
 import views.ViewGrilleJoueur;
@@ -40,6 +40,7 @@ public class Launcher {
 		fenetre.add(menu, BorderLayout.SOUTH);
 		fenetre.add(enJeu);
 		
+
 		fenetre.setVisible(true);
 	}
 }

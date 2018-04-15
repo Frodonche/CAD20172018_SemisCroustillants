@@ -20,9 +20,39 @@ public class Joueur {
 		// {constructeur de strategie avec le param strat}
 		
 	}
-	
-	private void setFlotte() {
-		ArrayList<Bateau> flotte = this.game.getEpoque().creerFlotte();
-		System.out.println(flotte);
+
+	public Joueur(Epoque e, int strat, boolean IA, Game g, ArrayList<Bateau> f){
+		grille = new int[10][10];
+		this.game = g;
+		this.flotte = f;
+		this.IA = IA;
 	}
+
+	private void setFlotte() {
+		ArrayList<Bateau> f= this.game.getEpoque().creerFlotte();
+		this.flotte = f;
+	}
+
+	public int[][] getGrille(){
+		return grille;
+	}
+
+	public ArrayList<Bateau> getFlotte(){
+		return flotte;
+	}
+
+	public String toStringFlotte(){
+		StringBuilder s = new StringBuilder(24);
+		int i;
+		for(i = 0; i < 5; i++){
+		 	s.append(flotte.get(i).toString()+"/");
+		}
+		return s.toString();
+	}
+
+	// @Override
+	// public String toString(){
+
+
+	// }
 }

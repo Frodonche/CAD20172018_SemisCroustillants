@@ -2,6 +2,8 @@ package bateaux;
 
 public class Croiseur extends Bateau {
 	
-	public Croiseur(){}
+	public Croiseur(){
+		super(3);
+	}
 	
 }

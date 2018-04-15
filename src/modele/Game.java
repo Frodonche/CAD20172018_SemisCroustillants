@@ -18,4 +18,15 @@ public class Game {
 	public Epoque getEpoque(){
 		return this.epoque;
 	}
+
+	public Joueur getJoueur(int i){
+		if(i == 1){
+			return j1;
+		}
+		if(i == 2){
+			return j2;
+		}
+		return null;
+	}
+
 }
