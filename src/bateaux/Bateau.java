@@ -36,5 +36,4 @@ public abstract class Bateau {
 		// }
 		return s.toString();
 	}
-
 }

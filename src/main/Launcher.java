@@ -6,9 +6,8 @@ import javax.swing.JFrame;
 
 import modele.*;
 import views.ViewBarreDroite;
+
 import views.ViewEnJeu;
-import views.ViewGrilleJoueur;
-import views.ViewGrilleTir;
 import views.ViewImageTitre;
 import views.ViewMenu;
 
@@ -18,7 +17,7 @@ public class Launcher {
 		// Mise en place de la fenetre
 		JFrame fenetre = new JFrame();
 		fenetre.setTitle("Virtual Battleship");
-		fenetre.setSize(800, 885); // la barre de l'appli fait 30px
+		fenetre.setSize(800, 785); // la barre de l'appli fait 30px
 		
 		fenetre.setLocationRelativeTo(null); // pour mettre la fenetre au centre de l'ecran
 		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

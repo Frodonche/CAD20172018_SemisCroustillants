@@ -17,7 +17,7 @@ public class ViewGrilleTir extends JPanel implements View{
 	public ViewGrilleTir(Modele modele) {
 		this.modele = modele;
 		this.setLayout(new GridLayout(10, 10));
-		this.setPreferredSize(new Dimension(400,400));
+		this.setPreferredSize(new Dimension(350,350));
 		declareGrilleTir();
 		this.setVisible(false);
 	}
