@@ -11,6 +11,7 @@ public class Modele {
 	private ArrayList<View> lesVues;
 	private boolean enJeu;
 	private Epoque epoqueChoisie;
+	private char orientationPlacement; // v ou h : pour le placement des bateaux
 	
 	/**
 	 * Constructeur du modele
@@ -20,7 +21,7 @@ public class Modele {
 		lesVues = new ArrayList<View>();
 		Epoque tempEp;
 		enJeu = false; // initialement dans le menu, donc pas en jeu
-		
+		orientationPlacement = 'v';
 
 		// Creation epoque XVIe
 		tempEp = new EpoqueXVIe("XVIe siecle");
@@ -80,6 +81,20 @@ public class Modele {
 		gdao.serialize(maGame);
 		gdao.saveToXML();
 	}
+	
+	/**
+	 * Oriente le bateau lors du placement au debut
+	 * @param orientation
+	 */
+	public void setOrientation(char orientation) {
+		this.orientationPlacement = orientation;
+		update();
+	}
+	
+	public char getOrientation() {
+		return this.orientationPlacement;
+	}
+	
 	
 	
 	/**

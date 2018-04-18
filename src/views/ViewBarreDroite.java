@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import controllers.ControllerBarreDroite;
 import modele.Modele;
 
 /**
@@ -18,6 +19,14 @@ import modele.Modele;
  */
 public class ViewBarreDroite extends JPanel implements View {
 	private Modele modele;
+	
+	private JButton tailleDeux;
+	private JButton tailleTrois;
+	private JButton tailleQuatre;
+	private JButton tailleCinq;
+	
+	private JButton vertical;
+	private JButton horizontal;
 	
 	public ViewBarreDroite(Modele modele) {
 		this.modele = modele;
@@ -33,14 +42,17 @@ public class ViewBarreDroite extends JPanel implements View {
 		vueBas.setLayout(new GridLayout(4, 1));
 		
 		JLabel placerTexte = new JLabel("Placer bateaux");
-		JButton tailleDeux = new JButton("Taille 2");
-		JButton tailleTrois = new JButton("Taille 3");
-		JButton tailleQuatre = new JButton("Taille 4");
-		JButton tailleCinq = new JButton("Taille 5");
+		tailleDeux = new JButton("Taille 2");
+		tailleTrois = new JButton("Taille 3");
+		tailleQuatre = new JButton("Taille 4");
+		tailleCinq = new JButton("Taille 5");
 		
 		JLabel orientation = new JLabel("Orientation");
-		JButton vertical = new JButton("Vertical");
-		JButton horizontal = new JButton("Horizontal");
+		vertical = new JButton("Vertical");
+		horizontal = new JButton("Horizontal");
+		
+		vertical.addActionListener(new ControllerBarreDroite(modele, "Vertical"));
+		horizontal.addActionListener(new ControllerBarreDroite(modele, "Horizontal"));
 		
 		vueHaut.add(placerTexte);
 		vueHaut.add(tailleDeux);
@@ -62,6 +74,13 @@ public class ViewBarreDroite extends JPanel implements View {
 	@Override
 	public void update() {
 		this.setVisible(modele.estEnJeu());
+		if(modele.getOrientation() == 'v') {
+			vertical.setEnabled(false);
+			horizontal.setEnabled(true);
+		}else {
+			vertical.setEnabled(true);
+			horizontal.setEnabled(false);
+		}
 	}
 
 }
