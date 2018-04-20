@@ -13,6 +13,13 @@ public class Modele {
 	private Epoque epoqueChoisie;
 	private char orientationPlacement; // v ou h : pour le placement des bateaux
 	
+	// les coordonnees de la case selectionnee dans la grille de tir
+	private int xTirSelect;
+	private int yTirSelect;
+	
+	private int xDernierTir;
+	private int yDernierTir;
+	
 	/**
 	 * Constructeur du modele
 	 */
@@ -30,6 +37,12 @@ public class Modele {
 		// Creation epoque XXe
 		tempEp = new EpoqueXXe("XXe siecle");
 		lesEpoques.add(tempEp);
+		
+		xTirSelect = -1;
+		yTirSelect = -1;
+		
+		xDernierTir = -2;
+		yDernierTir = -2;
 		
 	}
 	
@@ -96,6 +109,39 @@ public class Modele {
 	}
 	
 	
+	public int getXTirSelect() {
+		return this.xTirSelect;
+	}
+	
+	public int getYTirSelect() {
+		return this.yTirSelect;
+	}
+	
+	public void setCoordsTirSelect(int x, int y) {
+		this.xTirSelect = x;
+		this.yTirSelect = y;
+		update();
+	}
+	
+	
+	public void tirer() {
+		
+		// TODO
+		
+		// Maj des coordonnees du dernier tir
+		this.xDernierTir = this.xTirSelect;
+		this.yDernierTir = this.yTirSelect;
+		
+		update();
+	}
+	
+	public int getXDernierTir() {
+		return this.xDernierTir;
+	}
+	
+	public int getYDernierTir() {
+		return this.yDernierTir;
+	}
 	
 	/**
 	 * Met a jour toutes les vues connues par le modele

@@ -1,10 +1,12 @@
 package controllers;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.border.LineBorder;
 
 import factory.SpriteInterface;
 import modele.Modele;
@@ -17,21 +19,19 @@ import modele.Modele;
  */
 public class ControllerCaseGrilleTir implements ActionListener{
 	private Modele modele;
-	private JButton self;
 	private int x;
 	private int y;
 	
-	public ControllerCaseGrilleTir(Modele modele, JButton self, int x, int y) {
+	public ControllerCaseGrilleTir(Modele modele, int x, int y) {
 		this.modele = modele;
 		this.x = x;
 		this.y = y;
-		this.self = self;
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		System.out.println("Case cliquee : "+ x + " " + y);
-		self.setIcon(new ImageIcon(SpriteInterface.getInstance().getSprite("Water")));
+		modele.setCoordsTirSelect(x, y);
 		modele.update();
 	}
 

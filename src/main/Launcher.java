@@ -5,7 +5,6 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 
 import modele.*;
-import views.ViewBarreDroite;
 
 import views.ViewEnJeu;
 import views.ViewImageTitre;
