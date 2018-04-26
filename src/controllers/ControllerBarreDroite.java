@@ -19,9 +19,9 @@ public class ControllerBarreDroite implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		if(nomBouton == "Vertical")
-			modele.setOrientation('v');
+			modele.setOrientation("v");
 		if(nomBouton == "Horizontal")
-			modele.setOrientation('h');
+			modele.setOrientation("h");
 
 		if(nomBouton == "tailleDeux")
 			modele.setTaillePlacement(2);

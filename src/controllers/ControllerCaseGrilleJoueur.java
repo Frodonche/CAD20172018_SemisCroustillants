@@ -17,12 +17,12 @@ import modele.Modele;
  * Controller pour les boutons de la grille de Tir
  *
  */
-public class ControllerCaseGrilleTir implements ActionListener{
+public class ControllerCaseGrilleJoueur implements ActionListener{
 	private Modele modele;
 	private int x;
 	private int y;
 	
-	public ControllerCaseGrilleTir(Modele modele, int x, int y) {
+	public ControllerCaseGrilleJoueur(Modele modele, int x, int y) {
 		this.modele = modele;
 		this.x = x;
 		this.y = y;
@@ -31,7 +31,8 @@ public class ControllerCaseGrilleTir implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		//System.out.println("Case cliquee : "+ x + " " + y);
-		modele.setCoordsTirSelect(x, y);
+		if(modele.estPlacable(x, y))
+			modele.setCoordJoueurSelect(x, y);
 		modele.update();
 	}
 

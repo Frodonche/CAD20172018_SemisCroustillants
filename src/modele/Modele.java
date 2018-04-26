@@ -6,6 +6,9 @@ import epoques.*;
 import views.View;
 
 public class Modele {
+	private static int LARGEUR_GRILLE = 10;
+	private static int HAUTEUR_GRILLE = 10;
+	
 	private Game maGame;
 	private ArrayList<Epoque> lesEpoques;
 	private ArrayList<View> lesVues;
@@ -13,15 +16,16 @@ public class Modele {
 	private Epoque epoqueChoisie;
 	
 	// pour le placement des bateaux
-	private char orientationPlacement; // v ou h (vertical ou horizontal)
+	private String orientationPlacement; // v ou h (vertical ou horizontal)
 	private int taillePlacement;
 	private int nbTailleDeuxPlaces;
 	private int nbTailleTroisPlaces;
 	private int nbTailleQuatrePlaces;
 	private int nbTailleCinqPlaces;
 	
-	private int xPlacementSelect;
-	private int yPlacementSelect;
+	// coordonnees de la case selectionnee dans le grille du joueur
+	private int xJoueurSelect;
+	private int yJoueurSelect;
 	
 	// les coordonnees de la case selectionnee dans la grille de tir
 	private int xTirSelect;
@@ -39,15 +43,12 @@ public class Modele {
 		Epoque tempEp;
 		enJeu = false; // initialement dans le menu, donc pas en jeu
 		
-		orientationPlacement = 'v';
+		orientationPlacement = "v";
 		taillePlacement = 0;
 		nbTailleDeuxPlaces = 0;
 		nbTailleTroisPlaces = 0;
 		nbTailleQuatrePlaces = 0;
 		nbTailleCinqPlaces = 0;
-		
-		xPlacementSelect = -1;
-		yPlacementSelect = -1;
 		
 		// Creation epoque XVIe
 		tempEp = new EpoqueXVIe("XVIe siecle");
@@ -118,15 +119,31 @@ public class Modele {
 	 * Oriente le bateau lors du placement au debut
 	 * @param orientation
 	 */
-	public void setOrientation(char orientation) {
+	public void setOrientation(String orientation) {
 		this.orientationPlacement = orientation;
 		update();
 	}
 	
-	public char getOrientation() {
+	public String getOrientation() {
 		return this.orientationPlacement;
 	}
 	
+	/**
+	 * Defini si oui ou non un bateau est placable sur la case cliquee en fonction
+	 * de son orientation et de des coordonees
+	 * (pour l'instant on verifie seulement qu'on ne sort pas de la grille
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	public boolean estPlacable(int x, int y) {
+		if(orientationPlacement == "v") { // si l'orientation courante est verticale
+			return y + taillePlacement - HAUTEUR_GRILLE <= 0;
+		}else { // si l'orientation courante est horizontale
+			return x + taillePlacement - LARGEUR_GRILLE <= 0;
+		}
+			
+	}
 	
 	public int getXTirSelect() {
 		return this.xTirSelect;
@@ -136,12 +153,36 @@ public class Modele {
 		return this.yTirSelect;
 	}
 	
+	/**
+	 * Enregistre les coordonnees de tir correspondant a la case cliquee par le joueur
+	 * @param x
+	 * @param y
+	 */
 	public void setCoordsTirSelect(int x, int y) {
 		this.xTirSelect = x;
 		this.yTirSelect = y;
 		update();
 	}
 	
+	public int getXJoueurSelect() {
+		return this.xJoueurSelect;
+	}
+	
+	public int getYJoueurSelect() {
+		return this.yJoueurSelect;
+	}
+	
+	/**
+	 * Enregistre les coordonnees de tir correspondant a la case cliquee par le joueur
+	 * @param x
+	 * @param y
+	 */
+	public void setCoordJoueurSelect(int x, int y) {
+		this.xJoueurSelect = x;
+		this.yJoueurSelect = y;
+		
+		update();
+	}
 	
 	public void tirer() {
 		
@@ -150,7 +191,6 @@ public class Modele {
 		this.yDernierTir = this.yTirSelect;
 		
 		// TODO
-		
 		
 		// On reset le tir courant
 		this.xTirSelect = -1;
@@ -236,22 +276,12 @@ public class Modele {
 		update();
 	}
 	
-	/**
-	 * Selectionne une case pour placer un bateau
-	 * @param x
-	 * @param y
-	 */
-	public void selectionnerCasePlacement(int x, int y) {
-		this.xPlacementSelect = x;
-		this.yPlacementSelect = y;
-		
-		update();
-	}
 	
 	/**
 	 * Place un bateau de taille taillePlacement a la colonne xPlacementSelect et la ligne yPlacementSelect
+	 * Methode pour les bateaux de joueur uniquement
 	 */
-	public void placerBateau() {
+	public void placerBateauJoueur() {
 		
 		// TODO
 		

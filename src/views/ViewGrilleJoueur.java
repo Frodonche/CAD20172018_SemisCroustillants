@@ -1,23 +1,30 @@
 package views;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
 
+import controllers.ControllerCaseGrilleJoueur;
 import controllers.ControllerCaseGrilleTir;
 import factory.SpriteInterface;
 import modele.Modele;
 
 public class ViewGrilleJoueur extends JPanel implements View{
 	private Modele modele;
+	private JButton[][] lesBoutons;
+	private static int LARGEUR_GRILLE = 10;
+	private static int HAUTEUR_GRILLE = 10;
 	
 	public ViewGrilleJoueur(Modele modele) {
 		this.modele = modele;
 		this.setLayout(new GridLayout(10, 10));
 		this.setPreferredSize(new Dimension(350,350));
+		lesBoutons = new JButton[LARGEUR_GRILLE][HAUTEUR_GRILLE];
 		declareGrilleJoueur();
 		this.setVisible(false);
 	}
@@ -27,18 +34,47 @@ public class ViewGrilleJoueur extends JPanel implements View{
 	 * Puis les ajoute a la vue
 	 */
 	public void declareGrilleJoueur() {
-		JButton tempButton;
 		for (int ligne = 0; ligne < 10; ligne++) {
 			for (int col = 0; col < 10; col++) {
-				tempButton = new JButton(new ImageIcon(SpriteInterface.getInstance().getSprite("Water")));
-				//tempButton.addActionListener(new ControllerCaseGrilleJoueur(modele, tempButton, ligne, col));
-				this.add(tempButton);
+				lesBoutons[col][ligne] = new JButton(new ImageIcon(SpriteInterface.getInstance().getSprite("Water")));
+				lesBoutons[col][ligne].addActionListener(new ControllerCaseGrilleJoueur(modele, col, ligne));
+				this.add(lesBoutons[col][ligne]);
 			}
 		}
 	}
 	
 	@Override
 	public void update() {
+		String orientation = modele.getOrientation();
+		int taille = modele.getTaillePlacement();
+		int x, y;
+		int xSelect = modele.getXJoueurSelect();
+		int ySelect = modele.getYJoueurSelect();
+		if(orientation == "h") {
+			x = 1;
+			y = 0;
+		}else {
+			x = 0;
+			y = 1;
+		}
+		
+		// on reset l'affichage des lineBorder
+		for(int ligne = 0; ligne < 10; ligne++) {
+			for(int col = 0; col < 10; col++) {
+				lesBoutons[col][ligne].setBorder(null);
+			}
+		}
+		
+		// on calcule l'affichage des lines border
+		for(int ligne = 0; ligne < 10; ligne++) {
+			for(int col = 0; col < 10; col++) {
+				for(int i = 0; i < taille; i++) { // si on est sur la case cliquee, on calcule les autres lineborder a afficher
+					if(xSelect == col && ySelect == ligne)	
+						lesBoutons[col+(i*x)][ligne+(i*y)].setBorder(new LineBorder(Color.GREEN));
+				}
+			}
+		}
+		
 		this.setVisible(modele.estEnJeu());	
 	}
 

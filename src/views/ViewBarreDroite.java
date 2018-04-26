@@ -86,7 +86,7 @@ public class ViewBarreDroite extends JPanel implements View {
 		this.tailleQuatre.setEnabled(modele.getTaillePlacement() != 4 && modele.getNbTailleXPlaces(4) < 1);
 		this.tailleCinq.setEnabled(modele.getTaillePlacement() != 5 && modele.getNbTailleXPlaces(5) < 1);
 		
-		if(modele.getOrientation() == 'v') {
+		if(modele.getOrientation() == "v") {
 			vertical.setEnabled(false);
 			horizontal.setEnabled(true);
 		}else {
