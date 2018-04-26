@@ -47,6 +47,11 @@ public class ViewBarreDroite extends JPanel implements View {
 		tailleQuatre = new JButton("Taille 4");
 		tailleCinq = new JButton("Taille 5");
 		
+		tailleDeux.addActionListener(new ControllerBarreDroite(modele, "tailleDeux"));
+		tailleTrois.addActionListener(new ControllerBarreDroite(modele, "tailleTrois"));
+		tailleQuatre.addActionListener(new ControllerBarreDroite(modele, "tailleQuatre"));
+		tailleCinq.addActionListener(new ControllerBarreDroite(modele, "tailleCinq"));
+		
 		JLabel orientation = new JLabel("Orientation");
 		vertical = new JButton("Vertical");
 		horizontal = new JButton("Horizontal");
@@ -74,6 +79,13 @@ public class ViewBarreDroite extends JPanel implements View {
 	@Override
 	public void update() {
 		this.setVisible(modele.estEnJeu());
+		
+		// Un bouton de taille de bateau est utilisable s'il n'est pas deja selectionne et si il reste des bateaux de cette taille a placer
+		this.tailleDeux.setEnabled(modele.getTaillePlacement() != 2 && modele.getNbTailleXPlaces(2) < 1);
+		this.tailleTrois.setEnabled(modele.getTaillePlacement() != 3 && modele.getNbTailleXPlaces(3) < 2);
+		this.tailleQuatre.setEnabled(modele.getTaillePlacement() != 4 && modele.getNbTailleXPlaces(4) < 1);
+		this.tailleCinq.setEnabled(modele.getTaillePlacement() != 5 && modele.getNbTailleXPlaces(5) < 1);
+		
 		if(modele.getOrientation() == 'v') {
 			vertical.setEnabled(false);
 			horizontal.setEnabled(true);

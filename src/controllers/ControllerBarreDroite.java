@@ -22,6 +22,15 @@ public class ControllerBarreDroite implements ActionListener{
 			modele.setOrientation('v');
 		if(nomBouton == "Horizontal")
 			modele.setOrientation('h');
+
+		if(nomBouton == "tailleDeux")
+			modele.setTaillePlacement(2);
+		if(nomBouton == "tailleTrois")
+			modele.setTaillePlacement(3);
+		if(nomBouton == "tailleQuatre")
+			modele.setTaillePlacement(4);
+		if(nomBouton == "tailleCinq")
+			modele.setTaillePlacement(5);
 	}
 
 }

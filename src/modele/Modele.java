@@ -11,7 +11,17 @@ public class Modele {
 	private ArrayList<View> lesVues;
 	private boolean enJeu;
 	private Epoque epoqueChoisie;
-	private char orientationPlacement; // v ou h : pour le placement des bateaux
+	
+	// pour le placement des bateaux
+	private char orientationPlacement; // v ou h (vertical ou horizontal)
+	private int taillePlacement;
+	private int nbTailleDeuxPlaces;
+	private int nbTailleTroisPlaces;
+	private int nbTailleQuatrePlaces;
+	private int nbTailleCinqPlaces;
+	
+	private int xPlacementSelect;
+	private int yPlacementSelect;
 	
 	// les coordonnees de la case selectionnee dans la grille de tir
 	private int xTirSelect;
@@ -28,8 +38,17 @@ public class Modele {
 		lesVues = new ArrayList<View>();
 		Epoque tempEp;
 		enJeu = false; // initialement dans le menu, donc pas en jeu
+		
 		orientationPlacement = 'v';
-
+		taillePlacement = 0;
+		nbTailleDeuxPlaces = 0;
+		nbTailleTroisPlaces = 0;
+		nbTailleQuatrePlaces = 0;
+		nbTailleCinqPlaces = 0;
+		
+		xPlacementSelect = -1;
+		yPlacementSelect = -1;
+		
 		// Creation epoque XVIe
 		tempEp = new EpoqueXVIe("XVIe siecle");
 		lesEpoques.add(tempEp);
@@ -43,7 +62,7 @@ public class Modele {
 		
 		xDernierTir = -2;
 		yDernierTir = -2;
-		
+
 	}
 	
 	/*
@@ -126,11 +145,16 @@ public class Modele {
 	
 	public void tirer() {
 		
-		// TODO
-		
 		// Maj des coordonnees du dernier tir
 		this.xDernierTir = this.xTirSelect;
 		this.yDernierTir = this.yTirSelect;
+		
+		// TODO
+		
+		
+		// On reset le tir courant
+		this.xTirSelect = -1;
+		this.yTirSelect = -1;
 		
 		update();
 	}
@@ -141,6 +165,113 @@ public class Modele {
 	
 	public int getYDernierTir() {
 		return this.yDernierTir;
+	}
+	
+	/**
+	 * 
+	 * @return la taille de bateau a placer selectionnee
+	 */
+	public int getTaillePlacement() {
+		return this.taillePlacement;
+	}
+	
+	/**
+	 * 
+	 * @param t la taille de bateau a placer selectionnee
+	 */
+	public void setTaillePlacement(int t) {
+		this.taillePlacement = t;
+		update();
+	}
+	
+	/**
+	 * 
+	 * @param x la taille de bateau
+	 * @return return le nombre de bateaux de taille x places
+	 */
+	public int getNbTailleXPlaces(int x) {
+		int result;
+		switch(x) {
+		case 2:
+			result = this.nbTailleDeuxPlaces;
+			break;
+		case 3:
+			result = this.nbTailleTroisPlaces;
+			break;
+		case 4:
+			result = this.nbTailleQuatrePlaces;
+			break;
+		case 5:
+			result = this.nbTailleCinqPlaces;
+			break;
+		default:
+			result =  0;
+			break;
+		}
+		return result;
+	}
+	
+	/**
+	 * Ajoute un au nombre de bateaux de taille x
+	 * @param x la taille de bateau
+	 */
+	public void ajouterNbTailleXPlaces(int x) {
+		switch(x) {
+		case 2:
+			this.nbTailleDeuxPlaces += 1;
+			break;
+		case 3:
+			this.nbTailleTroisPlaces += 1;
+			break;
+		case 4:
+			this.nbTailleQuatrePlaces += 1;
+			break;
+		case 5:
+			this.nbTailleCinqPlaces += 1;
+			break;
+		default:
+			break;
+		}
+		
+		update();
+	}
+	
+	/**
+	 * Selectionne une case pour placer un bateau
+	 * @param x
+	 * @param y
+	 */
+	public void selectionnerCasePlacement(int x, int y) {
+		this.xPlacementSelect = x;
+		this.yPlacementSelect = y;
+		
+		update();
+	}
+	
+	/**
+	 * Place un bateau de taille taillePlacement a la colonne xPlacementSelect et la ligne yPlacementSelect
+	 */
+	public void placerBateau() {
+		
+		// TODO
+		
+		ajouterNbTailleXPlaces(this.taillePlacement);
+		
+		// une fois le bateau place, on reset la taille de bateau selectionnee
+		setTaillePlacement(0);
+		
+		update();
+	}
+	
+	/**
+	 * 
+	 * @return true si tous les bateaux sont places, false sinon
+	 */
+	public boolean bateauxTousPlaces() {
+		return nbTailleDeuxPlaces == 1
+				&& nbTailleTroisPlaces == 2
+				&& nbTailleQuatrePlaces == 1
+				&& nbTailleCinqPlaces == 1;
 	}
 	
 	/**

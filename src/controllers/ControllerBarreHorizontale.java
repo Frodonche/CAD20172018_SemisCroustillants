@@ -20,6 +20,9 @@ public class ControllerBarreHorizontale implements ActionListener{
 		if(nomBouton == "Tirer") {
 			modele.tirer();
 		}
+		if(nomBouton == "Placer") {
+			modele.placerBateau();
+		}
 	}
 
 }
