@@ -57,6 +57,7 @@ public class Joueur {
 		int cpt = 0;
 		boolean trouve = false;
 		while(trouve == false && cpt < 5) {
+			System.out.println("Taille "+taille+" Cpt "+cpt);
 			if(flotte.get(cpt).getTaille() == taille && !flotte.get(cpt).estPlace()) {
 				trouve = true;
 				getFlotte().get(cpt).setCases(x, y, orientation);
@@ -90,6 +91,21 @@ public class Joueur {
 	 * @return
 	 */
 	public boolean chevaucheBateau(int x, int y, int taille, String orientation) {
-		return true;
+		int vx, vy;
+		if(orientation == "h") {
+			vx = 1;
+			vy = 0;
+		}else {
+			vx = 0;
+			vy = 1;
+		}
+		for(int i = 0; i < taille; i++) {
+			for(Bateau b : flotte) {
+				if(b.estTouche(x+i*vx, y+i*vy)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }

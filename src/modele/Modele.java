@@ -151,9 +151,9 @@ public class Modele {
 			dansLaGrille =  x + taille - LARGEUR_GRILLE <= 0;
 		}
 		
-		//chevaucheUnAutreBateau = this.maGame.getJoueur(1).chevaucheBateau(x, y, taille, orientation);
+		chevaucheUnAutreBateau = this.maGame.getJoueur(1).chevaucheBateau(x, y, taille, orientation);
 		
-		return dansLaGrille;// && !chevaucheUnAutreBateau;
+		return dansLaGrille && !chevaucheUnAutreBateau;
 	}
 	
 	public int getXTirSelect() {
@@ -298,7 +298,9 @@ public class Modele {
 		ajouterNbTailleXPlaces(this.taillePlacement);
 		
 		// une fois le bateau place, on reset la taille de bateau selectionnee
+		// et les coords selecitonnees
 		setTaillePlacement(0);
+		setCoordJoueurSelect(-1, -1);
 		
 		update();
 	}
