@@ -18,19 +18,15 @@ public class Joueur {
 		this.setFlotte();
 		this.IA = IA;
 		// {constructeur de strategie avec le param strat}
-		
-	}
-
-	public Joueur(Epoque e, int strat, boolean IA, Game g, ArrayList<Bateau> f){
-		grille = new int[10][10];
-		this.game = g;
-		this.flotte = f;
-		this.IA = IA;
 	}
 
 	private void setFlotte() {
 		ArrayList<Bateau> f= this.game.getEpoque().creerFlotte();
 		this.flotte = f;
+	}
+
+	private void setFlotte(String s){
+		
 	}
 
 	public int[][] getGrille(){
@@ -42,10 +38,10 @@ public class Joueur {
 	}
 
 	public String toStringFlotte(){
-		StringBuilder s = new StringBuilder(24);
+		StringBuilder s = new StringBuilder(30);
 		int i;
 		for(i = 0; i < 5; i++){
-		 	s.append(flotte.get(i).toString()+"/");
+		 	s.append(flotte.get(i).toString()+"_");
 		}
 		return s.toString();
 	}

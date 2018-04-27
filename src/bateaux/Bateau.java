@@ -10,7 +10,8 @@ public abstract class Bateau {
 
 	public Bateau(int t){
 		taille = t;
-		//cases = new ArrayList(taille);
+		cases = new ArrayList(taille);
+		this.setCases(0,0,0); //A SUPPRIMER
 	}
 
 	public void setCases(int x, int y, int orientation){
@@ -28,12 +29,12 @@ public abstract class Bateau {
 	}
 
 	@Override
-	public String toString(){
-		StringBuilder s = new StringBuilder();
-		s.append(this.taille+" "+this.nbMunitions);
-		// for(int i = 0; i < this.taille; i++){
-		// 	s.append(cases.get(i).toString());
-		// }
+	public String toString() {
+        StringBuilder s = new StringBuilder();
+        s.append(this.nbMunitions + ":");
+        for (int i = 0; i < this.taille; i++) {
+            s.append(cases.get(i).toString() + ":");
+        }
 		return s.toString();
 	}
 }
