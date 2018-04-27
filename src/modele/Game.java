@@ -48,4 +48,54 @@ public class Game {
 		return getJoueur(j).estBateau(x, y);
 	}
 	
+	/**
+	 * Met en place les bateaux de l'IA de facon aleatoire
+	 */
+	public void setBateauxIA() {
+		int HAUTEUR_GRILLE = 10;
+		int LARGEUR_GRILLE = 10;
+		int nbPlace = 0;
+		boolean dansLaGrille;
+		boolean chevaucheBateau;
+		int min = 0;
+		int max = 9;
+		int x, y, o;
+		int taille = 0;
+		String orientation;
+		
+		while(nbPlace < 5) {
+			x = min + (int)(Math.random() * ((max - min) + 1));
+			y = min + (int)(Math.random() * ((max - min) + 1));
+			o = x = 0 + (int)(Math.random() * ((1 - 0) + 1));
+			if(o == 1)
+				orientation = "v";
+			else
+				orientation = "h";
+			
+			if(nbPlace == 0)
+				taille = 2;
+			if(nbPlace == 1 || nbPlace == 2) 
+				taille = 3;
+			if(nbPlace == 3)
+				taille = 4;
+			if(nbPlace == 4)
+				taille = 5;
+			
+			if(orientation == "v")// si l'orientation courante est verticale
+				dansLaGrille =  y + taille - HAUTEUR_GRILLE <= 0;
+			else// si l'orientation courante est horizontale
+				dansLaGrille =  x + taille - LARGEUR_GRILLE <= 0;
+			
+			if(dansLaGrille == true) {
+				chevaucheBateau = j2.chevaucheBateau(x, y, taille, orientation);
+				if(chevaucheBateau == false) {
+					j2.placerBateau(taille, x, y, orientation);
+					nbPlace += 1;
+				}
+			}
+		}
+		
+		
+	}
+	
 }

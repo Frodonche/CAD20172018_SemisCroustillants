@@ -63,7 +63,8 @@ public class Modele {
 		
 		xDernierTir = -2;
 		yDernierTir = -2;
-
+		
+		
 	}
 	
 	/*
@@ -74,6 +75,11 @@ public class Modele {
 		Epoque tempEp = lesEpoques.get(choixEpoque);
 		epoqueChoisie = tempEp; // on garde une trace de l'epoque en cours
 		maGame = new Game(tempEp);
+		
+		// mise en place des bateaux de l'IA de facon aleatoire
+		maGame.setBateauxIA();
+		
+		update();
 	}
 	
 	public Epoque getEpoqueChoisie() {

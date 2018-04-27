@@ -31,7 +31,7 @@ public class ViewMenuBar extends JMenuBar implements View{
 	
 	@Override
 	public void update() {
-		save.setEnabled(modele.estEnJeu());
+		save.setEnabled(modele.estEnJeu() && modele.bateauxTousPlaces());
 		load.setEnabled(modele.estEnJeu());
 	}
 

@@ -9,9 +9,9 @@ public class Joueur {
 	int[][] grille; // grille de tir du joueur. 0 : vierge, 1 : dans l'eau, 2 : touche, 3 : coule
 	ArrayList<Bateau> flotte;
 	Game game;
-	//Strategy strat;
+	// Strategy strat;
 	boolean IA; // true si IA, false si humain
-	
+
 	public Joueur(Epoque epoque, int strat, boolean IA, Game g) {
 		grille = new int[10][10];
 		this.game = g;
@@ -21,33 +21,34 @@ public class Joueur {
 	}
 
 	private void setFlotte() {
-		ArrayList<Bateau> f= this.game.getEpoque().creerFlotte();
+		ArrayList<Bateau> f = this.game.getEpoque().creerFlotte();
 		this.flotte = f;
 	}
 
-	private void setFlotte(String s){
-		
+	private void setFlotte(String s) {
+
 	}
 
-	public int[][] getGrille(){
+	public int[][] getGrille() {
 		return grille;
 	}
 
-	public ArrayList<Bateau> getFlotte(){
+	public ArrayList<Bateau> getFlotte() {
 		return flotte;
 	}
 
-	public String toStringFlotte(){
+	public String toStringFlotte() {
 		StringBuilder s = new StringBuilder(30);
 		int i;
-		for(i = 0; i < 5; i++){
-		 	s.append(flotte.get(i).toString()+"_");
+		for (i = 0; i < 5; i++) {
+			s.append(flotte.get(i).toString() + "_");
 		}
 		return s.toString();
 	}
 
 	/**
 	 * Defini les coordonnees du bateau de la taille en question
+	 * 
 	 * @param taille
 	 * @param x
 	 * @param y
@@ -56,34 +57,35 @@ public class Joueur {
 	public void placerBateau(int taille, int x, int y, String orientation) {
 		int cpt = 0;
 		boolean trouve = false;
-		while(trouve == false && cpt < 5) {
-			System.out.println("Taille "+taille+" Cpt "+cpt);
-			if(flotte.get(cpt).getTaille() == taille && !flotte.get(cpt).estPlace()) {
+		while (trouve == false && cpt < 5) {
+			if (flotte.get(cpt).getTaille() == taille && !flotte.get(cpt).estPlace()) {
 				trouve = true;
 				getFlotte().get(cpt).setCases(x, y, orientation);
 			}
 			cpt++;
 		}
-		
-		
+
 	}
-	
+
 	/**
 	 * Defini si un bateau est situe aux coordonnees x y
+	 * 
 	 * @param x
 	 * @param y
 	 * @return
 	 */
 	public boolean estBateau(int x, int y) {
-		for(Bateau b : flotte) {
-			if(b.estTouche(x, y))
-				return true;		
+		for (Bateau b : flotte) {
+			if (b.estTouche(x, y))
+				return true;
 		}
 		return false;
 	}
-	
+
 	/**
-	 * Verifie si le bateau que l'on veut placer va chevaucher ou non un autre bateau
+	 * Verifie si le bateau que l'on veut placer va chevaucher ou non un autre
+	 * bateau
+	 * 
 	 * @param x
 	 * @param y
 	 * @param taille
@@ -92,16 +94,16 @@ public class Joueur {
 	 */
 	public boolean chevaucheBateau(int x, int y, int taille, String orientation) {
 		int vx, vy;
-		if(orientation == "h") {
+		if (orientation == "h") {
 			vx = 1;
 			vy = 0;
-		}else {
+		} else {
 			vx = 0;
 			vy = 1;
 		}
-		for(int i = 0; i < taille; i++) {
-			for(Bateau b : flotte) {
-				if(b.estTouche(x+i*vx, y+i*vy)) {
+		for (int i = 0; i < taille; i++) {
+			for (Bateau b : flotte) {
+				if (b.estTouche(x + i * vx, y + i * vy)) {
 					return true;
 				}
 			}
