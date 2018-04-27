@@ -13,6 +13,7 @@ public abstract class Bateau {
 		taille = t;
 		nbMunitions = MUNITIONS;
 		cases = new ArrayList<Case>(taille);
+		this.setCases(0,0,"h");
 	}
 
 	public void setCases(int x, int y, String orientation){

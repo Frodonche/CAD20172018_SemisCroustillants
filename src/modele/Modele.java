@@ -111,6 +111,7 @@ public class Modele {
 
 	public void save(){
 		GameDAO gdao = new GameDAO("Save");
+		System.out.println(maGame.getJoueur(1).toStringFlotte());
 		gdao.serialize(maGame);
 		gdao.saveToXML();
 	}
