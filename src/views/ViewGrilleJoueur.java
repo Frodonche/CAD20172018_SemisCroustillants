@@ -20,6 +20,14 @@ public class ViewGrilleJoueur extends JPanel implements View{
 	private static int LARGEUR_GRILLE = 10;
 	private static int HAUTEUR_GRILLE = 10;
 	
+	// declaration pour update()
+	private String orientation;
+	private int taille;
+	private int x, y;
+	private int xSelect;
+	private int ySelect;
+	
+	
 	public ViewGrilleJoueur(Modele modele) {
 		this.modele = modele;
 		this.setLayout(new GridLayout(10, 10));
@@ -45,32 +53,45 @@ public class ViewGrilleJoueur extends JPanel implements View{
 	
 	@Override
 	public void update() {
-		String orientation = modele.getOrientation();
-		int taille = modele.getTaillePlacement();
-		int x, y;
-		int xSelect = modele.getXJoueurSelect();
-		int ySelect = modele.getYJoueurSelect();
-		if(orientation == "h") {
-			x = 1;
-			y = 0;
-		}else {
-			x = 0;
-			y = 1;
-		}
-		
-		// on reset l'affichage des lineBorder
-		for(int ligne = 0; ligne < 10; ligne++) {
-			for(int col = 0; col < 10; col++) {
-				lesBoutons[col][ligne].setBorder(null);
+		if(modele.estEnJeu()) {
+			// si on n'a pas fini de placer les bateaux
+			if(!modele.bateauxTousPlaces()) {
+				
+				orientation = modele.getOrientation();
+				taille = modele.getTaillePlacement();
+				xSelect = modele.getXJoueurSelect();
+				ySelect = modele.getYJoueurSelect();
+				
+				if(orientation == "h") {
+					x = 1;
+					y = 0;
+				}else {
+					x = 0;
+					y = 1;
+				}
+				
+				// on reset l'affichage des lineBorder
+				for(int ligne = 0; ligne < 10; ligne++) {
+					for(int col = 0; col < 10; col++) {
+						lesBoutons[col][ligne].setBorder(null);
+					}
+				}
+				
+				// on calcule l'affichage des lines border
+				for(int ligne = 0; ligne < 10; ligne++) {
+					for(int col = 0; col < 10; col++) {
+						for(int i = 0; i < taille; i++) { // si on est sur la case cliquee, on calcule les autres lineborder a afficher
+							if(xSelect == col && ySelect == ligne)	
+								lesBoutons[col+(i*x)][ligne+(i*y)].setBorder(new LineBorder(Color.GREEN));
+						}
+					}
+				}
+
 			}
-		}
-		
-		// on calcule l'affichage des lines border
-		for(int ligne = 0; ligne < 10; ligne++) {
-			for(int col = 0; col < 10; col++) {
-				for(int i = 0; i < taille; i++) { // si on est sur la case cliquee, on calcule les autres lineborder a afficher
-					if(xSelect == col && ySelect == ligne)	
-						lesBoutons[col+(i*x)][ligne+(i*y)].setBorder(new LineBorder(Color.GREEN));
+			for(int ligne = 0; ligne < 10; ligne++) {
+				for(int col = 0; col < 10; col++) {
+					if(modele.estBateau(1, col, ligne))
+						lesBoutons[col][ligne].setBorder(new LineBorder(Color.YELLOW));
 				}
 			}
 		}
