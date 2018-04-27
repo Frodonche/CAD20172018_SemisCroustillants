@@ -79,7 +79,9 @@ public class GameDAO implements GameService{
 
                     String[] data = s[j].split(":");
 
-                    Node shipRoot = createNode(dom, "bateau", "bateau","taille",""+(data.length-1));
+                    int taille = data.length-1;
+
+                    Node shipRoot = createNode(dom, "bateau", "bateau","taille",""+taille);
 
 
 					Node munRoot = createNode(dom, "munition", data[0],null,null);
