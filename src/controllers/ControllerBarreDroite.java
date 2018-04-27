@@ -19,18 +19,24 @@ public class ControllerBarreDroite implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		if(nomBouton == "Vertical")
-			modele.setOrientation("v");
+			if(modele.estPlacable(modele.getXJoueurSelect(), modele.getYJoueurSelect(), modele.getTaillePlacement(), "v"))
+				modele.setOrientation("v");
 		if(nomBouton == "Horizontal")
-			modele.setOrientation("h");
+			if(modele.estPlacable(modele.getXJoueurSelect(), modele.getYJoueurSelect(), modele.getTaillePlacement(), "h"))
+				modele.setOrientation("h");
 
 		if(nomBouton == "tailleDeux")
-			modele.setTaillePlacement(2);
+			if(modele.estPlacable(modele.getXJoueurSelect(), modele.getYJoueurSelect(), 2, modele.getOrientation()))
+				modele.setTaillePlacement(2);
 		if(nomBouton == "tailleTrois")
-			modele.setTaillePlacement(3);
+			if(modele.estPlacable(modele.getXJoueurSelect(), modele.getYJoueurSelect(), 3, modele.getOrientation()))
+				modele.setTaillePlacement(3);
 		if(nomBouton == "tailleQuatre")
-			modele.setTaillePlacement(4);
+			if(modele.estPlacable(modele.getXJoueurSelect(), modele.getYJoueurSelect(), 4, modele.getOrientation()))
+				modele.setTaillePlacement(4);
 		if(nomBouton == "tailleCinq")
-			modele.setTaillePlacement(5);
+			if(modele.estPlacable(modele.getXJoueurSelect(), modele.getYJoueurSelect(), 5, modele.getOrientation()))
+				modele.setTaillePlacement(5);
 	}
 
 }

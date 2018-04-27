@@ -3,6 +3,7 @@ package bateaux;
 import java.util.ArrayList;
 
 public abstract class Bateau {
+	private static int MUNITIONS = 10;
 	
 	protected int taille;
 	protected int nbMunitions;
@@ -10,12 +11,13 @@ public abstract class Bateau {
 
 	public Bateau(int t){
 		taille = t;
-		//cases = new ArrayList(taille);
+		nbMunitions = MUNITIONS;
+		cases = new ArrayList<Case>(taille);
 	}
 
-	public void setCases(int x, int y, int orientation){
+	public void setCases(int x, int y, String orientation){
 		int vx, vy;
-		if(orientation == 0){	
+		if(orientation == "v"){	
 			vx = 0;
 			vy = 1;
 		}else{
@@ -35,5 +37,30 @@ public abstract class Bateau {
 		// 	s.append(cases.get(i).toString());
 		// }
 		return s.toString();
+	}
+	
+	/**
+	 * Return true si le bateau possede une case aux coordonnees x y
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	public boolean estTouche(int x, int y) {
+		if(cases.size() > 0) {
+			System.out.println("tititititit");
+			for(Case c : cases) {
+				if(c.getX() == x && c.getY() == y)
+					return true;
+			}
+		}
+		return false;
+	}
+	
+	public int getNbMunitions() {
+		return this.nbMunitions;
+	}
+	
+	public void utiliserMunition() {
+		this.nbMunitions -= 1;
 	}
 }

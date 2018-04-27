@@ -31,7 +31,7 @@ public class ControllerCaseGrilleJoueur implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		//System.out.println("Case cliquee : "+ x + " " + y);
-		if(modele.estPlacable(x, y))
+		if(modele.estPlacable(x, y, modele.getTaillePlacement(), modele.getOrientation())) // le getter semble inutile mais la fonction est utilisee autrement ailleurs
 			modele.setCoordJoueurSelect(x, y);
 		modele.update();
 	}

@@ -136,13 +136,19 @@ public class Modele {
 	 * @param y
 	 * @return
 	 */
-	public boolean estPlacable(int x, int y) {
-		if(orientationPlacement == "v") { // si l'orientation courante est verticale
-			return y + taillePlacement - HAUTEUR_GRILLE <= 0;
+	public boolean estPlacable(int x, int y, int taille, String orientation) {
+		boolean dansLaGrille;
+		boolean chevaucheUnAutreBateau;
+		
+		if(orientation == "v") { // si l'orientation courante est verticale
+			dansLaGrille =  y + taille - HAUTEUR_GRILLE <= 0;
 		}else { // si l'orientation courante est horizontale
-			return x + taillePlacement - LARGEUR_GRILLE <= 0;
+			dansLaGrille =  x + taille - LARGEUR_GRILLE <= 0;
 		}
-			
+		
+		//chevaucheUnAutreBateau = this.maGame.getJoueur(1).chevaucheBateau(x, y, taille, orientation);
+		
+		return dansLaGrille;// && !chevaucheUnAutreBateau;
 	}
 	
 	public int getXTirSelect() {
@@ -282,8 +288,12 @@ public class Modele {
 	 * Methode pour les bateaux de joueur uniquement
 	 */
 	public void placerBateauJoueur() {
-		
-		// TODO
+		// on cree un bateau dans joueur a partir de la case selectionnee et de son orientation
+		if(taillePlacement == 3 && nbTailleTroisPlaces == 1) { // si on a deja place un bateau de taille 3
+			this.maGame.setCases(1, taillePlacement-1, this.xJoueurSelect, this.yJoueurSelect, this.orientationPlacement);
+		}else {
+			this.maGame.setCases(1, taillePlacement-2, this.xJoueurSelect, this.yJoueurSelect, this.orientationPlacement);
+		}
 		
 		ajouterNbTailleXPlaces(this.taillePlacement);
 		
@@ -291,6 +301,17 @@ public class Modele {
 		setTaillePlacement(0);
 		
 		update();
+	}
+	
+	/**
+	 * Defini si un bateau du joueur j se trouve sur les coordonnees x, y
+	 * @param j
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	public boolean estBateau(int j, int x, int y) {
+		return this.maGame.estBateau(j, x, y);
 	}
 	
 	/**
@@ -311,4 +332,5 @@ public class Modele {
 		for (View v : lesVues)
 			v.update();
 	}
+
 }

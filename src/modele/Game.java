@@ -28,5 +28,24 @@ public class Game {
 		}
 		return null;
 	}
+	
+	/**
+	 * Defini les coordoonees sur bateau numero taille du joueur j
+	 * @param joueur
+	 * @param taille
+	 * @param x
+	 * @param y
+	 * @param orientation
+	 */
+	public void setCases(int j, int taille, int x, int y, String orientation) {
+		this.getJoueur(j).setCases(taille, x, y , orientation); 
+	}
 
+	/**
+	 * Defnini si le joueur j possede un bateau aux coordonnees x y 
+	 */
+	public boolean estBateau(int j, int x, int y) {
+		return getJoueur(j).estBateau(x, y);
+	}
+	
 }
