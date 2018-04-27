@@ -114,6 +114,10 @@ public class Modele {
 		gdao.serialize(maGame);
 		gdao.saveToXML();
 	}
+
+	public void load(String file){
+		
+	}
 	
 	/**
 	 * Oriente le bateau lors du placement au debut
