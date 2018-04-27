@@ -53,18 +53,27 @@ public class Joueur {
 	 * @param y
 	 * @param orientation
 	 */
-	public void setCases(int taille, int x, int y, String orientation) {
-		getFlotte().get(taille).setCases(x, y, orientation);
+	public void placerBateau(int taille, int x, int y, String orientation) {
+		int cpt = 0;
+		boolean trouve = false;
+		while(trouve == false && cpt < 5) {
+			if(flotte.get(cpt).getTaille() == taille && !flotte.get(cpt).estPlace()) {
+				trouve = true;
+				getFlotte().get(cpt).setCases(x, y, orientation);
+			}
+			cpt++;
+		}
+		
+		
 	}
 	
 	/**
-	 * Defnini si un bateau est situe aux coordonnees x y
+	 * Defini si un bateau est situe aux coordonnees x y
 	 * @param x
 	 * @param y
 	 * @return
 	 */
 	public boolean estBateau(int x, int y) {
-		System.out.println("tototo");
 		for(Bateau b : flotte) {
 			if(b.estTouche(x, y))
 				return true;		

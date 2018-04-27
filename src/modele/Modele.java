@@ -293,13 +293,8 @@ public class Modele {
 	 * Methode pour les bateaux de joueur uniquement
 	 */
 	public void placerBateauJoueur() {
-		// on cree un bateau dans joueur a partir de la case selectionnee et de son orientation
-		if(taillePlacement == 3 && nbTailleTroisPlaces == 1) { // si on a deja place un bateau de taille 3
-			this.maGame.setCases(1, taillePlacement-1, this.xJoueurSelect, this.yJoueurSelect, this.orientationPlacement);
-		}else {
-			this.maGame.setCases(1, taillePlacement-2, this.xJoueurSelect, this.yJoueurSelect, this.orientationPlacement);
-		}
-		
+		this.maGame.placerBateau(1, taillePlacement, this.xJoueurSelect, this.yJoueurSelect, this.orientationPlacement);
+
 		ajouterNbTailleXPlaces(this.taillePlacement);
 		
 		// une fois le bateau place, on reset la taille de bateau selectionnee

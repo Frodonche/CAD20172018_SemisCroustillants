@@ -37,8 +37,8 @@ public class Game {
 	 * @param y
 	 * @param orientation
 	 */
-	public void setCases(int j, int taille, int x, int y, String orientation) {
-		this.getJoueur(j).setCases(taille, x, y , orientation); 
+	public void placerBateau(int j, int taille, int x, int y, String orientation) {
+		this.getJoueur(j).placerBateau(taille, x, y , orientation); 
 	}
 
 	/**

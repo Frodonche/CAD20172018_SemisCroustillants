@@ -8,11 +8,13 @@ public abstract class Bateau {
 	protected int taille;
 	protected int nbMunitions;
 	protected ArrayList<Case> cases;
+	protected boolean place;
 
 	public Bateau(int t){
 		taille = t;
 		nbMunitions = MUNITIONS;
 		cases = new ArrayList<Case>(taille);
+		place = false;
 		this.setCases(0,0,"h");
 	}
 
@@ -28,6 +30,7 @@ public abstract class Bateau {
 		for(int i = 0; i < this.taille;i++){
 			this.cases.add(new Case(x+i*vx,y+i*vy,1)); //Modifier pour gérer vie
 		}
+		place = true;
 	}
 
 	@Override
@@ -48,7 +51,6 @@ public abstract class Bateau {
 	 */
 	public boolean estTouche(int x, int y) {
 		if(cases.size() > 0) {
-			System.out.println("tititititit");
 			for(Case c : cases) {
 				if(c.getX() == x && c.getY() == y)
 					return true;
@@ -63,5 +65,13 @@ public abstract class Bateau {
 
 	public void utiliserMunition() {
 		this.nbMunitions -= 1;
+	}
+
+	public int getTaille() {
+		return taille;
+	}
+
+	public boolean estPlace() {
+		return this.place;
 	}
 }
