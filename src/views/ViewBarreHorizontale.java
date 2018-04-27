@@ -27,7 +27,7 @@ public class ViewBarreHorizontale extends JPanel implements View {
 	@Override
 	public void update() {
 		this.setVisible(modele.estEnJeu());
-		tirer.setEnabled(modele.getXTirSelect() >= 0 && modele.bateauxTousPlaces()); // bouton actif si une case est selectionnee et que tous les bateaux sont places
+		tirer.setEnabled(modele.getXTirSelect() >= 0 && modele.bateauxTousPlaces() && modele.getTailleBateauTir() > 0); // bouton actif si une case est selectionnee et que tous les bateaux sont places et qu'un bateau est selectionne pour tirer
 		placer.setEnabled(modele.getTaillePlacement() >= 2 && modele.getTaillePlacement() <= 5); // bouton actif si un bouton de taille est selectionne
 	}
 

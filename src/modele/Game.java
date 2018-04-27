@@ -49,6 +49,39 @@ public class Game {
 	}
 	
 	/**
+	 * Retourne le nombre de munitions pour le bateau de taille t du joueur j
+	 * @param j
+	 * @param t
+	 * @return
+	 */
+	public int getMunitions(int j, int t) {
+		return getJoueur(j).getMunitions(t);
+	}
+	
+	/**
+	 * Le joueur j utilise une munition du bateau de taille t
+	 * @param j
+	 * @param t
+	 */
+	public void utiliserMunition(int j, int t) {
+		getJoueur(j).utiliserMunition(t);
+	}
+	
+	/**
+	 * Tirer sur le joueur j aux coordonnees x y
+	 * @param j
+	 * @param x
+	 * @param y
+	 */
+	public void tirer(int j, int x, int y) {
+		getJoueur(j).tirer(x, y);
+	}
+	
+	public boolean estCassee(int j, int x, int y) {
+		return getJoueur(j).estCassee(x,y);
+	}
+	
+	/**
 	 * Met en place les bateaux de l'IA de facon aleatoire
 	 */
 	public void setBateauxIA() {

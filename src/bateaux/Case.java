@@ -18,6 +18,14 @@ public class Case{
 		return this.y;
 	}
 
+	public void perdreVie() {
+		vie -= 1;
+	}
+	
+	public int getVie() {
+		return vie;
+	}
+	
 	@Override
 	public String toString(){
 		return x+" "+y+" "+vie;

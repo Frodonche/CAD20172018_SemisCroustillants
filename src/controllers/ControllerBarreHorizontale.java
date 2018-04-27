@@ -18,9 +18,9 @@ public class ControllerBarreHorizontale implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		if(nomBouton == "Tirer") {
-			modele.tirer();
+			modele.tirer(1);
 		}
-		if(nomBouton == "Placer") {
+		if(nomBouton == "Placer" && modele.estPlacable(modele.getXJoueurSelect(), modele.getYJoueurSelect(), modele.getTaillePlacement(), modele.getOrientation())) {
 			modele.placerBateauJoueur();
 		}
 	}

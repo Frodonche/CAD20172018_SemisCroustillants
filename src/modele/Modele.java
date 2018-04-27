@@ -34,6 +34,8 @@ public class Modele {
 	private int xDernierTir;
 	private int yDernierTir;
 	
+	private int tailleBateauTir;
+	
 	/**
 	 * Constructeur du modele
 	 */
@@ -64,7 +66,7 @@ public class Modele {
 		xDernierTir = -2;
 		yDernierTir = -2;
 		
-		
+		tailleBateauTir = 0;
 	}
 	
 	/*
@@ -201,17 +203,30 @@ public class Modele {
 		update();
 	}
 	
-	public void tirer() {
+	/**
+	 * Le joueur j tire
+	 * @param j
+	 */
+	public void tirer(int j) {
+		int tireur = j;
+		int victime;
+		if(tireur == 1)
+			victime = 2;
+		else
+			victime = 1;
 		
 		// Maj des coordonnees du dernier tir
 		this.xDernierTir = this.xTirSelect;
 		this.yDernierTir = this.yTirSelect;
 		
-		// TODO
+		maGame.tirer(victime, xDernierTir, yDernierTir);
+		maGame.utiliserMunition(tireur, tailleBateauTir);
 		
 		// On reset le tir courant
 		this.xTirSelect = -1;
 		this.yTirSelect = -1;
+		
+		this.tailleBateauTir = 0;
 		
 		update();
 	}
@@ -322,6 +337,13 @@ public class Modele {
 		return this.maGame.estBateau(j, x, y);
 	}
 	
+	/*
+	 * Defini si la case du joueur j correspond a un bateau et est touchee
+	 */
+	public boolean estCasse(int j, int x, int y) {
+		return this.maGame.estCassee(j, x, y);
+	}
+	
 	/**
 	 * 
 	 * @return true si tous les bateaux sont places, false sinon
@@ -331,6 +353,32 @@ public class Modele {
 				&& nbTailleTroisPlaces == 2
 				&& nbTailleQuatrePlaces == 1
 				&& nbTailleCinqPlaces == 1;
+	}
+	
+	/**
+	 * Retourne le nombre de munitions pour le bateau de taille t pour le joueur j
+	 * @param j
+	 * @param taille
+	 * @return
+	 */
+	public int getMunitions(int j, int t){
+		int result = maGame.getMunitions(j, t);
+		if(t == 3) // on n'oublie pas qu'on a 2 bateau de taille 3
+			result *= 2;
+		return result;
+	}
+	
+	/**
+	 * Retourne la taille du bateau selectionne pour tirer
+	 * @return
+	 */
+	public int getTailleBateauTir() {
+		return tailleBateauTir;
+	}
+	
+	public void setTailleBateauTir(int taille) {
+		this.tailleBateauTir = taille;
+		update();
 	}
 	
 	/**

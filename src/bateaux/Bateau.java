@@ -59,6 +59,32 @@ public abstract class Bateau {
 		return false;
 	}
 
+	/**
+	 * Si le bateau est touche, faire perdre de la vie a la case correspondante
+	 * @param x
+	 * @param y
+	 */
+	public void tirer(int x, int y) {
+		if(cases.size() > 0) {
+			for(Case c : cases) {
+				if(c.getX() == x && c.getY() == y)
+					c.perdreVie();
+			}
+		}
+	}
+	
+	/**
+	 * Si la vie de toutes les cases est tombee a 0, le bateau est detruit
+	 * @return
+	 */
+	public boolean estDetruit() {
+		boolean result = true;
+		for(Case c : cases)
+			if(c.getVie() > 0)
+				result = false;
+		return result;
+	}
+	
 	public int getNbMunitions() {
 		return this.nbMunitions;
 	}

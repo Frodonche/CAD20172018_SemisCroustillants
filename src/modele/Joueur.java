@@ -110,4 +110,57 @@ public class Joueur {
 		}
 		return false;
 	}
+	
+	public int getMunitions(int taille) {
+		int cpt = 0;
+		int result = -1;
+		boolean trouve = false;
+		while (trouve == false && cpt < 5) {
+			if (flotte.get(cpt).getTaille() == taille) {
+				trouve = true;
+				result = flotte.get(cpt).getNbMunitions();
+			}
+			cpt++;
+		}
+		return result;
+	}
+	
+	
+	public void utiliserMunition(int taille) {
+		int cpt = 0;
+		int result = -1;
+		while (cpt < 5) {
+			if (flotte.get(cpt).getTaille() == taille) {
+				flotte.get(cpt).utiliserMunition();
+			}
+			cpt++;
+		}
+	}
+
+//	public boolean estCassee()
+	
+	/**
+	 * Verifie si le tir touche un bateau. Lui fait perdre de la vie le cas echeant
+	 * @param x
+	 * @param y
+	 */
+	public void tirer(int x, int y) {
+		for(Bateau b : flotte) {
+			b.tirer(x, y);
+				
+		}
+	}
+	
+	/**
+	 * Regarde si chaque bateau est detruit. Si oui, le joueur a perdu
+	 * @return
+	 */
+	public boolean aPerdu() {
+		boolean perdu = true;
+		for(Bateau b : flotte) {
+			if(b.estDetruit() == false)
+				perdu = false;
+		}
+		return perdu;
+	}
 }

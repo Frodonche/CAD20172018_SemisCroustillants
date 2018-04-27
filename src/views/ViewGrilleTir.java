@@ -56,6 +56,8 @@ public class ViewGrilleTir extends JPanel implements View{
 					
 					if(modele.estBateau(2, col, ligne))
 						lesBoutons[col][ligne].setBorder(new LineBorder(Color.RED));
+					
+					
 				}
 			}
 		}
