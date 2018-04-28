@@ -130,7 +130,7 @@ public class Game {
 		while(nbPlace < 5) {
 			x = min + (int)(Math.random() * ((max - min) + 1));
 			y = min + (int)(Math.random() * ((max - min) + 1));
-			o = x = 0 + (int)(Math.random() * ((1 - 0) + 1));
+			o = 0 + (int)(Math.random() * ((1 - 0) + 1));
 			if(o == 1)
 				orientation = "v";
 			else
