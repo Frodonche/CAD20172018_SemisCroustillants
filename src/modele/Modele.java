@@ -124,7 +124,7 @@ public class Modele {
 
 	public void save(){
 		JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
-	    String nom = jop.showInputDialog(null, "Choisissez un nom de sauvegarde", "Sauvegarde", JOptionPane.QUESTION_MESSAGE);
+	    String nom = jop.showInputDialog(null, "Choisissez un nom de sauvegarde", "Sauvegarder une partie", JOptionPane.QUESTION_MESSAGE);
 	    if(nom == null || nom.length() < 1)
 	    	nom = "default";
 		
@@ -136,8 +136,13 @@ public class Modele {
 
 
 	public void load(){
-		GameDAO gdao = new GameDAO("Save");
-		gdao.create("Save");
+		JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
+	    String nom = jop.showInputDialog(null, "Choisissez un nom de sauvegarde", "Charger une partie", JOptionPane.QUESTION_MESSAGE);
+	    if(nom == null || nom.length() < 1)
+	    	nom = "default";
+		
+		GameDAO gdao = new GameDAO(nom);
+		gdao.create(nom);
 	}
 	
 	/**
