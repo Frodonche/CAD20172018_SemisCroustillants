@@ -51,7 +51,8 @@ public class ViewGrilleTir extends JPanel implements View{
 						lesBoutons[col][ligne].setBorder(null);
 					
 					if(modele.estBateau(2, col, ligne)) {
-						lesBoutons[col][ligne].setBorder(new LineBorder(Color.RED));
+						// A decommenter pour voir les bateaux adverses pour faire des tests
+						//lesBoutons[col][ligne].setBorder(new LineBorder(Color.RED));
 						if(modele.estCassee(2, col, ligne)) {
 							lesBoutons[col][ligne].setIcon(null);
 							lesBoutons[col][ligne].setBorder(new LineBorder(Color.BLACK));
