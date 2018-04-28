@@ -21,7 +21,7 @@ public class ViewMenuBar extends JMenuBar implements View{
 		save.addActionListener(new ControllerMenuBar(this.modele, "Save"));
 		
 		load = new JMenuItem("Load");
-		save.addActionListener(new ControllerMenuBar(this.modele, "Load"));
+		load.addActionListener(new ControllerMenuBar(this.modele, "Load"));
 		
 		actions.add(save);
 		actions.add(load);

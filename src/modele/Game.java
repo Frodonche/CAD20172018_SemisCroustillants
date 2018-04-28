@@ -11,8 +11,9 @@ public class Game {
 	
 	public Game(Epoque epoque) {
 		this.epoque = epoque;
-		j1 = new Joueur(epoque, 0, false,this); // pour l'instant on laisse la strat à 0
+		j1 = new Joueur(epoque, 0, false, this); // pour l'instant on laisse la strat à 0
 		j2 = new Joueur(epoque, 0, true, this);
+
 	}
 
 	public Epoque getEpoque(){

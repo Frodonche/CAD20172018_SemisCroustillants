@@ -19,8 +19,8 @@ public class ControllerMenuBar implements ActionListener{
 		if(this.nomBouton == "Save")
 			modele.save();
 		
-		//if(this.nomBouton == "Load")
-			//modele.load();
+		if(this.nomBouton == "Load")
+			modele.load();
 	}
 
 }

@@ -20,6 +20,6 @@ public class Case{
 
 	@Override
 	public String toString(){
-		return x+" "+y+" "+vie;
+		return x+"-"+y+"-"+vie;
 	}
 }

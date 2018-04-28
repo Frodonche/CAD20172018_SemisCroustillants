@@ -116,8 +116,10 @@ public class Modele {
 		gdao.saveToXML();
 	}
 
-	public void load(String file){
-		
+
+	public void load(){
+		GameDAO gdao = new GameDAO("Save");
+		gdao.create("Save");
 	}
 	
 	/**
