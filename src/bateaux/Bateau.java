@@ -30,7 +30,7 @@ public abstract class Bateau {
 		for(int i = 0; i < this.taille;i++){
 			this.cases.add(new Case(x+i*vx,y+i*vy,1)); //Modifier pour gérer vie
 		}
-		place = true;
+		this.place = true;
 	}
 
 	@Override

@@ -64,6 +64,15 @@ public class Joueur {
 		return grille;
 	}
 
+	public String getGrilleToString(){
+	    StringBuilder s = new StringBuilder();
+	    for(int i = 0; i<this.grille.length; i++){
+	        for(int j = 0; j<this.grille[i].length; j++)
+	        s.append(grille[i][j]+":");
+        }
+        return s.toString();
+    }
+
 	public ArrayList<Bateau> getFlotte() {
 		return flotte;
 	}
@@ -104,28 +113,19 @@ public class Joueur {
 
         int taille = cases.length-1;
         for(Bateau b : flotte){
-            if(b.getTaille()==taille && !b.estPlace()){
-                
+            if(b.getTaille()==taille && b.estPlace()==false){
+
                 b.setMunitions(Integer.valueOf(cases[0]));
 
                 String orientation = "h";
 
-                String[] var = cases[1].split("-");
+                String[] var1 = cases[1].split("-");
+                String[] var2 = cases[2].split("-");
+                int x = Integer.valueOf(var1[0]);
+                int y = Integer.valueOf(var1[1]);
 
-                int x = Integer.valueOf(var[0]);
-                int y = Integer.valueOf(var[1]);
-
-
-                int temp = Integer.valueOf(var[0]);
-                int comp;
-
-                for(int i = 1; i<cases.length;i++){
-                    comp = temp;
-                    var = cases[i].split("-");
-                    temp = Integer.valueOf(var[0]);
-                    if(comp == temp){
-                        orientation = "v";
-                    }
+                if(Integer.valueOf(var1[0]) == Integer.valueOf(var2[0])){
+                    orientation = "v";
                 }
 
                 b.setCases(x,y,orientation);
@@ -136,6 +136,7 @@ public class Joueur {
                         c.setVie(Integer.valueOf(variables[2]));
                     }
                 }
+                break;
             }
         }
     }
@@ -247,4 +248,15 @@ public class Joueur {
 		}
 		return perdu;
 	}
+
+    public void chargerGrille(String g) {
+	    String[] s = g.split(":");
+	    int count = 0;
+	    for(int i = 0 ; i < HAUTEUR_GRILLE; i++){
+	        for(int j = 0; j < LARGEUR_GRILLE; j++){
+	            this.grille[i][j] = Integer.valueOf(s[count]);
+	            count++;
+            }
+        }
+    }
 }

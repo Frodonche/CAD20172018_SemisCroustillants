@@ -5,6 +5,7 @@ import javax.xml.transform.*;
 import javax.xml.transform.dom.*;
 import javax.xml.transform.stream.*;
 
+import bateaux.Bateau;
 import org.w3c.dom.*;
 
 import java.io.File;
@@ -19,17 +20,23 @@ public class GameDAO implements GameService {
     private String name;
     private String Casesflotte1;
     private String Casesflotte2;
+    private String grille1;
+    private String grille2;
     private String epoque;
 
     public GameDAO(String name) {
         this.name = name;
         this.Casesflotte1 = "";
         this.Casesflotte2 = "";
+        this.grille1 = "";
+        this.grille2 = "";
     }
 
     public void serialize(Game g) {
         this.Casesflotte1 = g.getJoueur(1).toStringFlotte();
         this.Casesflotte2 = g.getJoueur(2).toStringFlotte();
+        this.grille1 = g.getJoueur(1).getGrilleToString();
+        this.grille2 = g.getJoueur(2).getGrilleToString();
         this.epoque = g.getEpoque().toString();
     }
 
@@ -53,11 +60,14 @@ public class GameDAO implements GameService {
 	    for(int i=0;i<bateaux1.length;i++){
 	        game.getJoueur(1).chargerBateau(bateaux1[i]);
         }
-        String[] bateaux2 = Casesflotte1.split("_");
+        String[] bateaux2 = Casesflotte2.split("_");
 
         for(int i=0;i<bateaux2.length;i++){
-            game.getJoueur(1).chargerBateau(bateaux2[i]);
+            game.getJoueur(2).chargerBateau(bateaux2[i]);
         }
+
+        game.getJoueur(1).chargerGrille(grille1);
+        game.getJoueur(2).chargerGrille(grille2);
 
         return game;
     }
@@ -86,10 +96,13 @@ public class GameDAO implements GameService {
                 Node subRoot = createNode(dom, "flotte", null, "joueur", "" + player);
 
                 String str;
+                String grille;
                 if (i == 1) {
                     str = Casesflotte1;
+                    grille = grille1;
                 } else {
                     str = Casesflotte2;
+                    grille = grille2;
                 }
                 String[] s = str.split("_");
 
@@ -114,12 +127,19 @@ public class GameDAO implements GameService {
                     subRoot.appendChild(shipRoot);
 
                 }
+
+
+                Node grilleRoot = createNode(dom, "grille", grille, null, null);
+                subRoot.appendChild(grilleRoot);
+
                 rootEle.appendChild(subRoot);
+
 
             }
             e = dom.createElement("epoque");
             e.appendChild(dom.createTextNode(epoque));
             rootEle.appendChild(e);
+
 
             dom.appendChild(rootEle);
 
@@ -216,6 +236,14 @@ public class GameDAO implements GameService {
                         this.concatCases1(tempNode.getTextContent()+"_");
                     }else if(joueur == 2){
                         this.concatCases2(tempNode.getTextContent()+"_");
+                    }
+                }
+
+                if(temp.equals("grille")){
+                    if(joueur == 1){
+                        this.grille1 = tempNode.getTextContent();
+                    }else if(joueur == 2){
+                        this.grille2 = tempNode.getTextContent();
                     }
                 }
 
