@@ -86,13 +86,9 @@ public class ViewBarreDroite extends JPanel implements View {
 		this.tailleQuatre.setEnabled(modele.getTaillePlacement() != 4 && modele.getNbTailleXPlaces(4) < 1);
 		this.tailleCinq.setEnabled(modele.getTaillePlacement() != 5 && modele.getNbTailleXPlaces(5) < 1);
 		
-		if(modele.getOrientation() == "v") {
-			vertical.setEnabled(false);
-			horizontal.setEnabled(true);
-		}else {
-			vertical.setEnabled(true);
-			horizontal.setEnabled(false);
-		}
+		vertical.setEnabled(modele.getOrientation() == "h" && !modele.bateauxTousPlaces());
+		horizontal.setEnabled(modele.getOrientation() == "v" && !modele.bateauxTousPlaces());
+
 	}
 
 }

@@ -2,6 +2,8 @@ package modele;
 
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import epoques.*;
 import views.View;
 
@@ -34,6 +36,10 @@ public class Modele {
 	private int xDernierTir;
 	private int yDernierTir;
 	
+	private int tailleBateauTir;
+	
+	private int gagnant; // 0 : personne,  1: j1, 2 : j2
+	
 	/**
 	 * Constructeur du modele
 	 */
@@ -63,6 +69,8 @@ public class Modele {
 		
 		xDernierTir = -2;
 		yDernierTir = -2;
+		
+		tailleBateauTir = 0;
 
 	}
 	
@@ -74,6 +82,11 @@ public class Modele {
 		Epoque tempEp = lesEpoques.get(choixEpoque);
 		epoqueChoisie = tempEp; // on garde une trace de l'epoque en cours
 		maGame = new Game(tempEp);
+		
+		// mise en place des bateaux de l'IA de facon aleatoire
+		maGame.setBateauxIA();
+		
+		update();
 	}
 	
 	public Epoque getEpoqueChoisie() {
@@ -153,9 +166,9 @@ public class Modele {
 			dansLaGrille =  x + taille - LARGEUR_GRILLE <= 0;
 		}
 		
-		//chevaucheUnAutreBateau = this.maGame.getJoueur(1).chevaucheBateau(x, y, taille, orientation);
+		chevaucheUnAutreBateau = this.maGame.getJoueur(1).chevaucheBateau(x, y, taille, orientation);
 		
-		return dansLaGrille;// && !chevaucheUnAutreBateau;
+		return dansLaGrille && !chevaucheUnAutreBateau;
 	}
 	
 	public int getXTirSelect() {
@@ -197,19 +210,62 @@ public class Modele {
 		update();
 	}
 	
-	public void tirer() {
+	/**
+	 * Le joueur j tire
+	 * @param j
+	 */
+	public void tirer(int j) {
+		int tireur = j;
+		int victime;
+		if(tireur == 1)
+			victime = 2;
+		else
+			victime = 1;
 		
 		// Maj des coordonnees du dernier tir
 		this.xDernierTir = this.xTirSelect;
 		this.yDernierTir = this.yTirSelect;
 		
-		// TODO
+		maGame.tirer(victime, xDernierTir, yDernierTir);
+		maGame.utiliserMunition(tireur, tailleBateauTir);
+		
+		maGame.marquerGrille(victime, this.xDernierTir, this.yDernierTir);
 		
 		// On reset le tir courant
 		this.xTirSelect = -1;
 		this.yTirSelect = -1;
 		
+		this.tailleBateauTir = 0;
+		
 		update();
+		
+		// on verifie si J1 gagne sur le tir courant
+		if(aGagne(1))
+			this.gagnant = 1;
+		
+		// Si le joueur vient de tirer, l'IA tire a un endroit aleatoire ou elle n'a pas deja tire
+		if(tireur == 1 && gagnant != 1) {
+			int x, y;
+			boolean estMarque = true;
+			
+			while(estMarque) {
+				x = 0 + (int)(Math.random() * ((LARGEUR_GRILLE-1 - 0) + 1));
+				y = 0 + (int)(Math.random() * ((HAUTEUR_GRILLE-1 - 0) + 1));
+				estMarque = this.estMarque(1, x, y);
+				if(estMarque == false) {
+					xTirSelect = x;
+					yTirSelect = y;
+					tirer(2);
+				}
+			}
+			// on verifie si J2 (l'IA) gagne sur le tir courant
+			if(aGagne(2))
+				this.gagnant = 2;
+		}
+		
+		if(estTermine())
+			messageFin();
+		
 	}
 	
 	public int getXDernierTir() {
@@ -218,6 +274,19 @@ public class Modele {
 	
 	public int getYDernierTir() {
 		return this.yDernierTir;
+	}
+	
+	/**
+	 * Retourne vrai si la case de la grille du joueur j a deja ete ciblee par un tir
+	 * @param j
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	public boolean estMarque(int j, int x, int y) {
+		if(x >= 0 && x < LARGEUR_GRILLE && y >= 0 && y < HAUTEUR_GRILLE)
+			return maGame.estMarque(j, x, y);
+		return false;
 	}
 	
 	/**
@@ -300,7 +369,9 @@ public class Modele {
 		ajouterNbTailleXPlaces(this.taillePlacement);
 		
 		// une fois le bateau place, on reset la taille de bateau selectionnee
+		// et les coords selecitonnees
 		setTaillePlacement(0);
+		setCoordJoueurSelect(-1, -1);
 		
 		update();
 	}
@@ -316,6 +387,13 @@ public class Modele {
 		return this.maGame.estBateau(j, x, y);
 	}
 	
+	/*
+	 * Defini si la case du joueur j correspond a un bateau et est touchee
+	 */
+	public boolean estCassee(int j, int x, int y) {
+		return this.maGame.estCassee(j, x, y);
+	}
+	
 	/**
 	 * 
 	 * @return true si tous les bateaux sont places, false sinon
@@ -326,6 +404,73 @@ public class Modele {
 				&& nbTailleQuatrePlaces == 1
 				&& nbTailleCinqPlaces == 1;
 	}
+	
+	/**
+	 * Retourne le nombre de munitions pour le bateau de taille t pour le joueur j
+	 * @param j
+	 * @param taille
+	 * @return
+	 */
+	public int getMunitions(int j, int t){
+		int result = maGame.getMunitions(j, t);
+		if(t == 3) // on n'oublie pas qu'on a 2 bateau de taille 3
+			result *= 2;
+		return result;
+	}
+	
+	/**
+	 * Retourne la taille du bateau selectionne pour tirer
+	 * @return
+	 */
+	public int getTailleBateauTir() {
+		return tailleBateauTir;
+	}
+	
+	public void setTailleBateauTir(int taille) {
+		this.tailleBateauTir = taille;
+		update();
+	}
+	
+	/**
+	 * Defini si oui ou non le joueur j a gagne
+	 * @param j
+	 * @return
+	 */
+	public boolean aGagne(int j) {
+		return maGame.aGagne(j);
+	}
+	
+	/**
+	 * retourne le numero du joueur gagnant (ou 0 si personne n'a encore gagne)
+	 * @return
+	 */
+	public int getGagnant() {
+		return this.gagnant;
+	}
+	
+	/**
+	 * le jeu est termine si il y a un gagnant
+	 * @return
+	 */
+	public boolean estTermine() {
+		return this.gagnant > 0;
+	}
+	
+	/**
+	 * Fait apparaître une boite de dialogue pour rejouer si la partie est terminee
+	 */
+	public void messageFin() {
+		String message;
+		if(getGagnant() == 1)
+			message = "Felicitations, vous avez gagne !";
+		else
+			message = "Dommage, vous avez perdu...";
+		
+		 JOptionPane jop = new JOptionPane();    
+		 jop.showMessageDialog(null, message, "Fin de la partie", JOptionPane.INFORMATION_MESSAGE);
+	}
+	
+	
 	
 	/**
 	 * Met a jour toutes les vues connues par le modele

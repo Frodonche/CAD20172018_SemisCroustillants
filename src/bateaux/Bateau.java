@@ -15,7 +15,7 @@ public abstract class Bateau {
 		nbMunitions = MUNITIONS;
 		cases = new ArrayList<Case>(taille);
 		place = false;
-		this.setCases(-1,-1,"h");
+	//	this.setCases(-1,-1,"h");
 	}
 
 	public void setCases(int x, int y, String orientation){
@@ -55,6 +55,46 @@ public abstract class Bateau {
 				if(c.getX() == x && c.getY() == y)
 					return true;
 			}
+		}
+		return false;
+	}
+
+	/**
+	 * Si le bateau est touche, faire perdre de la vie a la case correspondante
+	 * @param x
+	 * @param y
+	 */
+	public void tirer(int x, int y) {
+		if(cases.size() > 0) {
+			for(Case c : cases) {
+				if(c.getX() == x && c.getY() == y)
+					c.perdreVie();
+			}
+		}
+	}
+
+	/**
+	 * Si la vie de toutes les cases est tombee a 0, le bateau est detruit
+	 * @return
+	 */
+	public boolean estDetruit() {
+		boolean result = true;
+		for(Case c : cases)
+			if(c.getVie() > 0)
+				result = false;
+		return result;
+	}
+
+	/**
+	 * Defnini si oui ou non la case en question est detruite
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	public boolean estCassee(int x, int y) {
+		for(Case c : cases) {
+			if(c.getX() == x && c.getY() == y && c.getVie() <= 0)
+				return true;
 		}
 		return false;
 	}

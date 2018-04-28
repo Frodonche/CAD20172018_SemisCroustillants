@@ -42,16 +42,27 @@ public class ViewGrilleTir extends JPanel implements View{
 	
 	@Override
 	public void update() {
-		for(int ligne = 0; ligne < 10; ligne++) {
-			for(int col = 0; col < 10; col++) {
-				if(modele.getXTirSelect() == col && modele.getYTirSelect() == ligne)	
-					lesBoutons[col][ligne].setBorder(new LineBorder(Color.RED));
-				else
-					lesBoutons[col][ligne].setBorder(null);
-				
-				// si on vient de tirer sur la case
-				if(modele.getXDernierTir() == col && modele.getYDernierTir() == ligne)
-					lesBoutons[col][ligne].setIcon(new ImageIcon(SpriteInterface.getInstance().getSprite("Water")));
+		if(modele.estEnJeu()) {
+			for(int ligne = 0; ligne < 10; ligne++) {
+				for(int col = 0; col < 10; col++) {
+					if(modele.getXTirSelect() == col && modele.getYTirSelect() == ligne)	
+						lesBoutons[col][ligne].setBorder(new LineBorder(Color.RED));
+					else
+						lesBoutons[col][ligne].setBorder(null);
+					
+					if(modele.estBateau(2, col, ligne)) {
+						lesBoutons[col][ligne].setBorder(new LineBorder(Color.RED));
+						if(modele.estCassee(2, col, ligne)) {
+							lesBoutons[col][ligne].setIcon(null);
+							lesBoutons[col][ligne].setBorder(new LineBorder(Color.BLACK));
+							lesBoutons[col][ligne].setBackground(Color.RED);
+						}
+					}else {
+						if(modele.estMarque(2, col, ligne))
+							lesBoutons[col][ligne].setIcon(new ImageIcon(SpriteInterface.getInstance().getSprite("Water")));
+					}
+					
+				}
 			}
 		}
 		this.setVisible(modele.estEnJeu());

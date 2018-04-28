@@ -32,7 +32,6 @@ public class ControllerCaseGrilleTir implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		//System.out.println("Case cliquee : "+ x + " " + y);
 		modele.setCoordsTirSelect(x, y);
-		modele.update();
 	}
 
 }
