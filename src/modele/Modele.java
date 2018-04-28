@@ -2,6 +2,8 @@ package modele;
 
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import epoques.*;
 import views.View;
 
@@ -36,6 +38,8 @@ public class Modele {
 	
 	private int tailleBateauTir;
 	
+	private int gagnant; // 0 : personne,  1: j1, 2 : j2
+	
 	/**
 	 * Constructeur du modele
 	 */
@@ -67,6 +71,7 @@ public class Modele {
 		yDernierTir = -2;
 		
 		tailleBateauTir = 0;
+
 	}
 	
 	/*
@@ -222,6 +227,8 @@ public class Modele {
 		maGame.tirer(victime, xDernierTir, yDernierTir);
 		maGame.utiliserMunition(tireur, tailleBateauTir);
 		
+		maGame.marquerGrille(victime, this.xDernierTir, this.yDernierTir);
+		
 		// On reset le tir courant
 		this.xTirSelect = -1;
 		this.yTirSelect = -1;
@@ -229,6 +236,34 @@ public class Modele {
 		this.tailleBateauTir = 0;
 		
 		update();
+		
+		// on verifie si J1 gagne sur le tir courant
+		if(aGagne(1))
+			this.gagnant = 1;
+		
+		// Si le joueur vient de tirer, l'IA tire a un endroit aleatoire ou elle n'a pas deja tire
+		if(tireur == 1 && gagnant != 1) {
+			int x, y;
+			boolean estMarque = true;
+			
+			while(estMarque) {
+				x = 0 + (int)(Math.random() * ((LARGEUR_GRILLE-1 - 0) + 1));
+				y = 0 + (int)(Math.random() * ((HAUTEUR_GRILLE-1 - 0) + 1));
+				estMarque = this.estMarque(1, x, y);
+				if(estMarque == false) {
+					xTirSelect = x;
+					yTirSelect = y;
+					tirer(2);
+				}
+			}
+			// on verifie si J2 (l'IA) gagne sur le tir courant
+			if(aGagne(2))
+				this.gagnant = 2;
+		}
+		
+		if(estTermine())
+			messageFin();
+		
 	}
 	
 	public int getXDernierTir() {
@@ -237,6 +272,19 @@ public class Modele {
 	
 	public int getYDernierTir() {
 		return this.yDernierTir;
+	}
+	
+	/**
+	 * Retourne vrai si la case de la grille du joueur j a deja ete ciblee par un tir
+	 * @param j
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	public boolean estMarque(int j, int x, int y) {
+		if(x >= 0 && x < LARGEUR_GRILLE && y >= 0 && y < HAUTEUR_GRILLE)
+			return maGame.estMarque(j, x, y);
+		return false;
 	}
 	
 	/**
@@ -340,7 +388,7 @@ public class Modele {
 	/*
 	 * Defini si la case du joueur j correspond a un bateau et est touchee
 	 */
-	public boolean estCasse(int j, int x, int y) {
+	public boolean estCassee(int j, int x, int y) {
 		return this.maGame.estCassee(j, x, y);
 	}
 	
@@ -380,6 +428,47 @@ public class Modele {
 		this.tailleBateauTir = taille;
 		update();
 	}
+	
+	/**
+	 * Defini si oui ou non le joueur j a gagne
+	 * @param j
+	 * @return
+	 */
+	public boolean aGagne(int j) {
+		return maGame.aGagne(j);
+	}
+	
+	/**
+	 * retourne le numero du joueur gagnant (ou 0 si personne n'a encore gagne)
+	 * @return
+	 */
+	public int getGagnant() {
+		return this.gagnant;
+	}
+	
+	/**
+	 * le jeu est termine si il y a un gagnant
+	 * @return
+	 */
+	public boolean estTermine() {
+		return this.gagnant > 0;
+	}
+	
+	/**
+	 * Fait apparaître une boite de dialogue pour rejouer si la partie est terminee
+	 */
+	public void messageFin() {
+		String message;
+		if(getGagnant() == 1)
+			message = "Felicitations, vous avez gagne !";
+		else
+			message = "Dommage, vous avez perdu...";
+		
+		 JOptionPane jop = new JOptionPane();    
+		 jop.showMessageDialog(null, message, "Fin de la partie", JOptionPane.INFORMATION_MESSAGE);
+	}
+	
+	
 	
 	/**
 	 * Met a jour toutes les vues connues par le modele

@@ -59,10 +59,11 @@ public class ViewBarreGauche extends JPanel implements View {
 	public void update() {
 		if(modele.estEnJeu()) {
 			tousPlaces = modele.bateauxTousPlaces();
-			bateauT2.setEnabled(tousPlaces && modele.getMunitions(1, 2) > 0 && modele.getTailleBateauTir() != 2);
-			bateauT3.setEnabled(tousPlaces && modele.getMunitions(1, 3) > 0 && modele.getTailleBateauTir() != 3);
-			bateauT4.setEnabled(tousPlaces && modele.getMunitions(1, 4) > 0 && modele.getTailleBateauTir() != 4);
-			bateauT5.setEnabled(tousPlaces && modele.getMunitions(1, 5) > 0 && modele.getTailleBateauTir() != 5);
+			// Les boutons ne sont actives que si tous les bateaux sont places, qu'il leur reste des munitions, qu'ils ne sont pas deja selectionnes ou que le jeu n'est pas termine
+			bateauT2.setEnabled(tousPlaces && modele.getMunitions(1, 2) > 0 && modele.getTailleBateauTir() != 2 && !modele.estTermine());
+			bateauT3.setEnabled(tousPlaces && modele.getMunitions(1, 3) > 0 && modele.getTailleBateauTir() != 3 && !modele.estTermine());
+			bateauT4.setEnabled(tousPlaces && modele.getMunitions(1, 4) > 0 && modele.getTailleBateauTir() != 4 && !modele.estTermine());
+			bateauT5.setEnabled(tousPlaces && modele.getMunitions(1, 5) > 0 && modele.getTailleBateauTir() != 5 && !modele.estTermine());
 			
 			bateauT2.setText("Bateau T2 ("+modele.getMunitions(1, 2)+")");
 			bateauT3.setText("Bateau T3 ("+modele.getMunitions(1, 3)+")");

@@ -50,13 +50,17 @@ public class ViewGrilleTir extends JPanel implements View{
 					else
 						lesBoutons[col][ligne].setBorder(null);
 					
-					// si on vient de tirer sur la case
-					if(modele.getXDernierTir() == col && modele.getYDernierTir() == ligne)
-						lesBoutons[col][ligne].setIcon(new ImageIcon(SpriteInterface.getInstance().getSprite("Water")));
-					
-					if(modele.estBateau(2, col, ligne))
+					if(modele.estBateau(2, col, ligne)) {
 						lesBoutons[col][ligne].setBorder(new LineBorder(Color.RED));
-					
+						if(modele.estCassee(2, col, ligne)) {
+							lesBoutons[col][ligne].setIcon(null);
+							lesBoutons[col][ligne].setBorder(new LineBorder(Color.BLACK));
+							lesBoutons[col][ligne].setBackground(Color.RED);
+						}
+					}else {
+						if(modele.estMarque(2, col, ligne))
+							lesBoutons[col][ligne].setIcon(new ImageIcon(SpriteInterface.getInstance().getSprite("Water")));
+					}
 					
 				}
 			}

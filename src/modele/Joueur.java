@@ -6,14 +6,18 @@ import bateaux.Bateau;
 import epoques.Epoque;
 
 public class Joueur {
-	int[][] grille; // grille de tir du joueur. 0 : vierge, 1 : dans l'eau, 2 : touche, 3 : coule
-	ArrayList<Bateau> flotte;
-	Game game;
+	private static int LARGEUR_GRILLE = 10;
+	private static int HAUTEUR_GRILLE = 10;
+	
+	private int[][] grille; // 1 si le joueur adverse a deja tire sur la case. 0 sinon
+	private ArrayList<Bateau> flotte;
+	private Game game;
 	// Strategy strat;
-	boolean IA; // true si IA, false si humain
+	private boolean IA; // true si IA, false si humain
 
 	public Joueur(Epoque epoque, int strat, boolean IA, Game g) {
-		grille = new int[10][10];
+		grille = new int[HAUTEUR_GRILLE][LARGEUR_GRILLE];
+		initGrille();
 		this.game = g;
 		this.setFlotte();
 		this.IA = IA;
@@ -24,9 +28,37 @@ public class Joueur {
 		ArrayList<Bateau> f = this.game.getEpoque().creerFlotte();
 		this.flotte = f;
 	}
-
+	
 	private void setFlotte(String s) {
 
+	}
+	
+	/**
+	 * Initialise la grille en mettant toutes ses cases a 0
+	 */
+	public void initGrille() {
+		for(int i = 0; i < HAUTEUR_GRILLE; i++) {
+			for(int j = 0; j < LARGEUR_GRILLE; j++) {
+				grille[i][j] = 0;
+			}
+		}
+	}
+	
+	/**
+	 * Marque les coordonnees col, ligne de la grille comme ayant deja ete ciblee
+	 */
+	public void marquerGrille(int col, int ligne) {
+		grille[ligne][col] = 1;
+	}
+	
+	/**
+	 * Retourne vrai si la case col ligne de la grille a deja ete ciblee
+	 * @param col
+	 * @param ligne
+	 * @return
+	 */
+	public boolean estMarque(int col, int ligne) {
+		return grille[ligne][col] == 1;
 	}
 
 	public int[][] getGrille() {
@@ -123,6 +155,17 @@ public class Joueur {
 			cpt++;
 		}
 		return result;
+	}
+	
+	
+	public boolean estCassee(int x, int y) {
+		int cpt = 0;
+		while (cpt < 5) {
+			if(flotte.get(cpt).estCassee(x,y))
+				return true;
+			cpt++;
+		}
+		return false;	
 	}
 	
 	

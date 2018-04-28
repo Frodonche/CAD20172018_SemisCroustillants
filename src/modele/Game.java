@@ -82,6 +82,37 @@ public class Game {
 	}
 	
 	/**
+	 * Marque la grille du joueur j aux coordonnees x, y comme etant ciblee par un tir
+	 * @param joueur
+	 * @param x
+	 * @param y
+	 */
+	public void marquerGrille(int j, int x, int y) {
+		getJoueur(j).marquerGrille(x, y);
+	}
+	
+	/**
+	 * Retourne vrai si la case de la grille du joueur j a deja ete ciblee par un tir
+	 */
+	public boolean estMarque(int j, int x, int y) {
+		return getJoueur(j).estMarque(x, y);
+	}
+	
+	/**
+	 * Defini si le joueur j a gagne en regardant si l'autre joueur a perdu
+	 * @param j
+	 * @return
+	 */
+	public boolean aGagne(int j) {
+		int adversaire;
+		if(j == 1)
+			adversaire = 2;
+		else
+			adversaire = 1;
+		return getJoueur(adversaire).aPerdu() && !getJoueur(j).aPerdu();
+	}
+	
+	/**
 	 * Met en place les bateaux de l'IA de facon aleatoire
 	 */
 	public void setBateauxIA() {

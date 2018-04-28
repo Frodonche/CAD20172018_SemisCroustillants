@@ -85,6 +85,20 @@ public abstract class Bateau {
 		return result;
 	}
 	
+	/**
+	 * Defnini si oui ou non la case en question est detruite
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	public boolean estCassee(int x, int y) {
+		for(Case c : cases) {
+			if(c.getX() == x && c.getY() == y && c.getVie() <= 0)
+				return true;
+		}
+		return false;
+	}
+	
 	public int getNbMunitions() {
 		return this.nbMunitions;
 	}

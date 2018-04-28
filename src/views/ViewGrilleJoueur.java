@@ -93,7 +93,13 @@ public class ViewGrilleJoueur extends JPanel implements View{
 					if(modele.estBateau(1, col, ligne)) {
 						lesBoutons[col][ligne].setIcon(null);
 						lesBoutons[col][ligne].setBorder(new LineBorder(Color.BLACK));
-						lesBoutons[col][ligne].setBackground(Color.GREEN);
+						if(modele.estMarque(1, col, ligne))
+							lesBoutons[col][ligne].setBackground(Color.ORANGE);
+						else
+							lesBoutons[col][ligne].setBackground(Color.GREEN);
+					}else {
+						if(modele.estMarque(1, col, ligne))
+							lesBoutons[col][ligne].setBorder(new LineBorder(Color.ORANGE));
 					}
 				}
 			}
