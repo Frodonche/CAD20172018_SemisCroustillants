@@ -123,7 +123,12 @@ public class Modele {
 	}
 
 	public void save(){
-		GameDAO gdao = new GameDAO("Save");
+		JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
+	    String nom = jop.showInputDialog(null, "Choisissez un nom de sauvegarde", "Sauvegarde", JOptionPane.QUESTION_MESSAGE);
+	    if(nom == null || nom.length() < 1)
+	    	nom = "default";
+		
+		GameDAO gdao = new GameDAO(nom);
 		System.out.println(maGame.getJoueur(1).toStringFlotte());
 		gdao.serialize(maGame);
 		gdao.saveToXML();
