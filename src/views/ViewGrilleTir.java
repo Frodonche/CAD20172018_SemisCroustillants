@@ -56,7 +56,7 @@ public class ViewGrilleTir extends JPanel implements View{
 						if(modele.estCassee(2, col, ligne)) {
 							lesBoutons[col][ligne].setIcon(null);
 							lesBoutons[col][ligne].setBorder(new LineBorder(Color.BLACK));
-							lesBoutons[col][ligne].setBackground(Color.RED);
+							lesBoutons[col][ligne].setBackground(Color.red);
 						}
 					}else {
 						if(modele.estMarque(2, col, ligne))

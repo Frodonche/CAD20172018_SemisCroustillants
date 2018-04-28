@@ -25,6 +25,10 @@ public class Case{
 	public int getVie() {
 		return vie;
 	}
+
+	public void setVie(int v){
+		this.vie = v;
+	}
 	
 	@Override
 	public String toString(){

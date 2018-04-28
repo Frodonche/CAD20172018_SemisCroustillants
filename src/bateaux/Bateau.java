@@ -114,4 +114,12 @@ public abstract class Bateau {
 	public boolean estPlace() {
 		return this.place;
 	}
+
+	public void setMunitions(int mun){
+	    this.nbMunitions = mun;
+    }
+
+    public ArrayList<Case> getCases() {
+        return cases;
+    }
 }

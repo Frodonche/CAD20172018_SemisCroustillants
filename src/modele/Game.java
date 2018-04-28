@@ -32,7 +32,7 @@ public class Game {
 	
 	/**
 	 * Defini les coordoonees sur bateau numero taille du joueur j
-	 * @param joueur
+	 * @param j
 	 * @param taille
 	 * @param x
 	 * @param y
@@ -84,7 +84,7 @@ public class Game {
 	
 	/**
 	 * Marque la grille du joueur j aux coordonnees x, y comme etant ciblee par un tir
-	 * @param joueur
+	 * @param j
 	 * @param x
 	 * @param y
 	 */

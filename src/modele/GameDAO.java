@@ -39,16 +39,25 @@ public class GameDAO implements GameService {
     }
 
     public Game create(String xml) {
-        Game game = null;
+        Game game;
         this.readXML(xml);
+
 	    if(this.epoque == "XVIe siecle") {
             game = new Game(new EpoqueXVIe(this.epoque));
         }else{
             game = new Game(new EpoqueXXe(this.epoque));
         }
 
+        String[] bateaux1 = Casesflotte1.split("_");
 
+	    for(int i=0;i<bateaux1.length;i++){
+	        game.getJoueur(1).chargerBateau(bateaux1[i]);
+        }
+        String[] bateaux2 = Casesflotte1.split("_");
 
+        for(int i=0;i<bateaux2.length;i++){
+            game.getJoueur(1).chargerBateau(bateaux2[i]);
+        }
 
         return game;
     }
@@ -72,8 +81,8 @@ public class GameDAO implements GameService {
 
             // create data elements and place them under root
             // for each player
-            for (int i = 0; i <= 1; i++) {
-                int player = i + 1;
+            for (int i = 1; i <= 2; i++) {
+                int player = i;
                 Node subRoot = createNode(dom, "flotte", null, "joueur", "" + player);
 
                 String str;
@@ -94,12 +103,12 @@ public class GameDAO implements GameService {
                     Node shipRoot = createNode(dom, "bateau", null, "taille", "" + taille);
 
 
-                    Node munRoot = createNode(dom, "munition", "/"+data[0], null, null);
+                    Node munRoot = createNode(dom, "munition", data[0], null, null);
                     shipRoot.appendChild(munRoot);
 
                     //for each case
                     for (int k = 1; k < data.length; k++) {
-                        Node caseRoot = createNode(dom, "case", "/"+data[k], null, null);
+                        Node caseRoot = createNode(dom, "case", ":"+data[k], null, null);
                         shipRoot.appendChild(caseRoot);
                     }
                     subRoot.appendChild(shipRoot);
@@ -172,9 +181,9 @@ public class GameDAO implements GameService {
                 this.setClasse(nList,0);
             }
 
-            System.out.println(this.Casesflotte1);
-            System.out.println(this.Casesflotte2);
-            System.out.println(this.epoque);
+//            System.out.println(this.Casesflotte1);
+//            System.out.println(this.Casesflotte2);
+//            System.out.println(this.epoque);
 
         } catch (Exception e) {
             e.printStackTrace();

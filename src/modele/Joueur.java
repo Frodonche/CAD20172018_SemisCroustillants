@@ -3,7 +3,10 @@ package modele;
 import java.util.ArrayList;
 
 import bateaux.Bateau;
+import bateaux.Case;
 import epoques.Epoque;
+
+import javax.annotation.processing.SupportedSourceVersion;
 
 public class Joueur {
 	private static int LARGEUR_GRILLE = 10;
@@ -27,10 +30,6 @@ public class Joueur {
 	private void setFlotte() {
 		ArrayList<Bateau> f = this.game.getEpoque().creerFlotte();
 		this.flotte = f;
-	}
-	
-	private void setFlotte(String s) {
-
 	}
 	
 	/**
@@ -98,6 +97,48 @@ public class Joueur {
 		}
 
 	}
+
+	public void chargerBateau(String s){
+        System.out.println(s);
+        String[] cases = s.split(":");
+
+        int taille = cases.length-1;
+        for(Bateau b : flotte){
+            if(b.getTaille()==taille && !b.estPlace()){
+                
+                b.setMunitions(Integer.valueOf(cases[0]));
+
+                String orientation = "h";
+
+                String[] var = cases[1].split("-");
+
+                int x = Integer.valueOf(var[0]);
+                int y = Integer.valueOf(var[1]);
+
+
+                int temp = Integer.valueOf(var[0]);
+                int comp;
+
+                for(int i = 1; i<cases.length;i++){
+                    comp = temp;
+                    var = cases[i].split("-");
+                    temp = Integer.valueOf(var[0]);
+                    if(comp == temp){
+                        orientation = "v";
+                    }
+                }
+
+                b.setCases(x,y,orientation);
+
+                for(Case c : b.getCases()){
+                    for(int j = 1; j < cases.length;j++){
+                        String[] variables = cases[j].split("-");
+                        c.setVie(Integer.valueOf(variables[2]));
+                    }
+                }
+            }
+        }
+    }
 
 	/**
 	 * Defini si un bateau est situe aux coordonnees x y

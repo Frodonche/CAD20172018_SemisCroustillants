@@ -137,9 +137,20 @@ public class Modele {
 
 	public void load(){
 		GameDAO gdao = new GameDAO("Save");
-		gdao.create("Save");
+		this.setGame(gdao.create("Save"));
+		ajouterNbTailleXPlaces(2);
+		ajouterNbTailleXPlaces(3);
+		ajouterNbTailleXPlaces(3);
+		ajouterNbTailleXPlaces(4);
+		ajouterNbTailleXPlaces(5);
+		update();
+
 	}
-	
+
+	public void setGame(Game g){
+		this.maGame = g;
+	}
+
 	/**
 	 * Oriente le bateau lors du placement au debut
 	 * @param orientation
@@ -413,7 +424,7 @@ public class Modele {
 	/**
 	 * Retourne le nombre de munitions pour le bateau de taille t pour le joueur j
 	 * @param j
-	 * @param taille
+	 * @param t
 	 * @return
 	 */
 	public int getMunitions(int j, int t){
