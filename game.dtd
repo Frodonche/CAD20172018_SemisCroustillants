@@ -1,0 +1,9 @@
+<!ELEMENT sauvegarde (flotte+, epoque)>
+<!ELEMENT epoque (#PCDATA)>
+<!ELEMENT flotte (bateau+,grille)>
+  <!ATTLIST flotte joueur (1|2) #REQUIRED >
+  <!ELEMENT bateau (munition, case+)>
+    <!ATTLIST bateau taille (2|3|4|5) #REQUIRED >
+    <!ELEMENT munition (#PCDATA)>
+    <!ELEMENT case (#PCDATA)>
+    <!ELEMENT grille (#PCDATA)>
