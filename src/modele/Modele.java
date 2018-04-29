@@ -39,6 +39,7 @@ public class Modele {
 	private int tailleBateauTir;
 	
 	private int gagnant; // 0 : personne,  1: j1, 2 : j2
+	private boolean termine;
 	
 	/**
 	 * Constructeur du modele
@@ -48,7 +49,7 @@ public class Modele {
 		lesVues = new ArrayList<View>();
 		Epoque tempEp;
 		enJeu = false; // initialement dans le menu, donc pas en jeu
-		
+		termine = false;
 		orientationPlacement = "v";
 		taillePlacement = 0;
 		nbTailleDeuxPlaces = 0;
@@ -114,6 +115,15 @@ public class Modele {
 		return this.enJeu;
 	}
 	
+	
+	public boolean getTermine() {
+		return this.termine;
+	}
+	
+	public void setTermine(boolean b) {
+		this.termine = b;
+	}
+	
 	/**
 	 * @param bool 
 	 * Fait varier enJeu pour passer du menu a l'ecran de jeu
@@ -121,7 +131,7 @@ public class Modele {
 	public void setEnJeu(boolean bool) {
 		this.enJeu = bool;
 	}
-
+	
 	public void save(){
 		JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
 	    String nom = jop.showInputDialog(null, "Choisissez un nom de sauvegarde", "Sauvegarder une partie", JOptionPane.QUESTION_MESSAGE);
@@ -148,8 +158,11 @@ public class Modele {
 		ajouterNbTailleXPlaces(3);
 		ajouterNbTailleXPlaces(4);
 		ajouterNbTailleXPlaces(5);
+		
+		
 		update();
-
+		
+		this.setTermine(true);
 	}
 
 	public void setGame(Game g){
@@ -191,6 +204,14 @@ public class Modele {
 		chevaucheUnAutreBateau = this.maGame.getJoueur(1).chevaucheBateau(x, y, taille, orientation);
 		
 		return dansLaGrille && !chevaucheUnAutreBateau;
+	}
+	
+	/**
+	 * return true si au moins un bateau est place
+	 * @return
+	 */
+	public boolean auMoinsUnBateauPlace() {
+		return nbTailleDeuxPlaces > 0 || nbTailleTroisPlaces > 0 || nbTailleQuatrePlaces > 0 || nbTailleCinqPlaces > 0;
 	}
 	
 	public int getXTirSelect() {

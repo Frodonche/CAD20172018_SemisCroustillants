@@ -47,5 +47,6 @@ public class Launcher {
 		fenetre.setVisible(true);
 		
 		modele.update();
+
 	}
 }
