@@ -1,8 +1,6 @@
 package modele;
 
 import epoques.*;
-import bateaux.Bateau;
-import java.util.ArrayList;
 
 public class Game {
 	Joueur j1; // l'humain

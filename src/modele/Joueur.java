@@ -6,7 +6,6 @@ import bateaux.Bateau;
 import bateaux.Case;
 import epoques.Epoque;
 
-import javax.annotation.processing.SupportedSourceVersion;
 
 public class Joueur {
 	private static int LARGEUR_GRILLE = 10;
@@ -213,7 +212,6 @@ public class Joueur {
 	
 	public void utiliserMunition(int taille) {
 		int cpt = 0;
-		int result = -1;
 		while (cpt < 5) {
 			if (flotte.get(cpt).getTaille() == taille) {
 				flotte.get(cpt).utiliserMunition();

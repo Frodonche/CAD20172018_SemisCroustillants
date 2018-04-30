@@ -5,7 +5,6 @@ import javax.xml.transform.*;
 import javax.xml.transform.dom.*;
 import javax.xml.transform.stream.*;
 
-import bateaux.Bateau;
 import org.w3c.dom.*;
 
 import java.io.File;
